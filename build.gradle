@@ -32,3 +32,8 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+//버전 삭제
+bootJar {
+    archiveFileName = "${archiveBaseName.get()}.${archiveExtension.get()}"
+}
