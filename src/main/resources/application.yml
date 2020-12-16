@@ -1,2 +1,29 @@
+spring:
+  profiles:
+    active: dev
+  datasource:
+    sql-script-encoding: UTF-8
+
 server:
   port: 8089
+
+---
+spring:
+  profiles: dev
+  datasource:
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/
+    username: asts
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  h2:
+    console:
+      enabled: true
+  logging:
+    level:
+      org.springframework.data: debug
+
