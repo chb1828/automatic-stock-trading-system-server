@@ -6,4 +6,4 @@
   path.config: "/usr/share/logstash/pipeline"
   sh-4.2$ cat logstash.yml
 http.host: "0.0.0.0"
-xpack.monitoring.elasticsearch.hosts: [ "http://localhost:9200" ]
+xpack.monitoring.elasticsearch.hosts: [ "http://elasticsearch:9200" ]
