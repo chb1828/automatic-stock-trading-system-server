@@ -1,5 +1,6 @@
 package com.asts.server.core.domain;
 
+import com.asts.server.core.domain.audit.DateAudit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Movie {
+public class Movie extends DateAudit {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
