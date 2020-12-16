@@ -23,7 +23,10 @@ public class TestController {       //테스트
         movie.setPoster("Poster");
         movie.setYear(123);
         movie.setType("Type");
-        movieRepository.save(movie);
+        Movie result = movieRepository.save(movie);
+        if(result!=null) {
+            System.out.println(result.getId()+"아이디 값, 제대로 찍힘");
+        }
         return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(null,"test"));
     }
 }

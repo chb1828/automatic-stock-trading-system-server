@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: docker
+    active: dev
   datasource:
     sql-script-encoding: UTF-8
 
@@ -37,11 +37,9 @@ spring:
     password: root
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-  h2:
-    console:
-      enabled: true
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect.
+    show-sql: false
   logging:
     level:
       org.springframework.data: debug
