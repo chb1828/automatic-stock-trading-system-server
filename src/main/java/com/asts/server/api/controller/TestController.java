@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController("/")
-public class TestController {
+public class TestController {       //테스트
 
     private final MovieRepository movieRepository;
 
