@@ -24,9 +24,6 @@ public class TestController {       //테스트
         movie.setYear(123);
         movie.setType("Type");
         Movie result = movieRepository.save(movie);
-        if(result!=null) {
-            System.out.println(result.getId()+"아이디 값, 제대로 찍힘");
-        }
-        return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(null,"test"));
+        return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(null,"test, 새로고침을 하면 데이터가 삽입됩니다."));
     }
 }
