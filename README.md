@@ -8,7 +8,7 @@
 
 아래 포트 번호를 사용해서 app과 kibana에 접속 할 수 있습니다.
 
-예시) http://localhost:5601/
+예시) http://localhost:5601/ <-- kibana 접속
 
 현재 app에 접속하면 자동으로 값이 Postgresql DB에 저장되어 동기화 되고있는 Elasticsearch 에도 값이 저장됩니다. 
 
