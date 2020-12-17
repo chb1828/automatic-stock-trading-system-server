@@ -17,7 +17,7 @@
 * elasticsearch : 9200,9300
 * postgresql : 5432
 * kibana : 5601
-* logstash : 123
+* logstash : 
 
 ---
 ### Docker 모두 삭제
