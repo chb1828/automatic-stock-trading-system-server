@@ -19,7 +19,7 @@
 3. 키바나 페이지에서 dashboard 로 이동
 4. Check for new data라는 문구가 뜨면 데이터가 삽입될 때까지 기다리고 Check for new data 클릭
 5. Index Pattern에 movie 작성
-6. Time Filter field name에 `I don``t want to use the Time Filter` 선택
+6. Time Filter field name에 `I don`t want to use the Time Filter` 선택
 7. Discover 페이지로 가서 확인, 새로고침을 누를때마다 한개씩 증가
 
 
