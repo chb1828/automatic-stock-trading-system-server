@@ -10,7 +10,7 @@
 
 예시) http://localhost:5601/
 
-현재 app에 접속하면 자동으로 값이 Postgresql DB에 저장되어 Elasticsearch와 동기화 하고 있습니다. 
+현재 app에 접속하면 자동으로 값이 Postgresql DB에 저장되어 동기화 되고있는 Elasticsearch 에도 값이 저장됩니다. 
 
 ##### Port
 * app : 8089
