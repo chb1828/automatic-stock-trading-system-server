@@ -34,7 +34,7 @@
 ### Docker 모두 삭제
 
 1. docker rm -vf $(docker ps -a -q) 컨테이너 삭제
-2. docker volume rm $(docker volume ls -q) 볼륨 삭제
+2. docker volume rm $(docker volume ls -q) 볼륨 삭제 ,기존 데이터는 전부 삭제 됩니다.
 3. docker rmi -f $(docker images -a -q) 이미지 삭제
 
 
