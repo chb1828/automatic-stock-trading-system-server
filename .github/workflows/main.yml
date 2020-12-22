@@ -30,6 +30,8 @@ jobs:
           python -m virtualenv venv
           . venv/bin/activate
           pip install --no-cache-dir -r requirements.txt
+      - name: Run migrations
+        run: python manage.py migrate
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
