@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ change-framework ]
   pull_request:
-    branches: [ main ]
+    branches: [ change-framework ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -23,19 +23,36 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      - name: build and push docker image
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup VirtualEnv
         run: |
-          set -x
-          REPO="https://github.com/chb1828/portfolio.git"
-          chmod +x gradlew
-          ./gradlew clean build
-          DOCKER_USER=sugarpowder
-          DOCKER_PASS=sugar1234
-          PRJ_NAME=asts
-          PRJ_JAR=${PRJ_NAME}.jar
-          docker build -t ${PRJ_NAME} --build-arg JAR_FILE=build/libs/${PRJ_JAR} ./
-          docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-          docker tag ${PRJ_NAME} ${DOCKER_USER}/${PRJ_NAME}:latest
-          docker push ${DOCKER_USER}/${PRJ_NAME}
+          pip install virtualenv
+          python -m virtualenv venv
+          . venv/bin/activate
+          pip install --no-cache-dir -r requirements.txt
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Generate build number
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{secrets.github_token}}
+      - name: Print new build number
+        run: echo "Build number is $BUILD_NUMBER"
+      - name: Build and push Docker image
+        env:
+          TAG: latest
+          IMAGE_NAME: asts
+          DOCKER_USER: sugarpowder
+          DOCKER_PASS: sugar1234
+        run: |
+          . venv/bin/activate
+          docker build -t $IMAGE_NAME .
+          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker tag $IMAGE_NAME $DOCKER_USER/$IMAGE_NAME:$TAG
+          docker push $DOCKER_USER/$IMAGE_NAME
