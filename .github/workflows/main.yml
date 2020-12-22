@@ -41,7 +41,7 @@ jobs:
       - name: Build and push Docker image
         run: |
           echo 'export TAG=0.1.${BUILD_NUMBER}'
-          print($TAG)
+          print(TAG)
           echo 'export IMAGE_NAME=asts'
           print(IMAGE_NAME)
           echo 'export DOCKER_USER=sugarpowder'
