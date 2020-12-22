@@ -37,7 +37,7 @@
 5. Check for new data라는 문구가 뜨면 데이터가 삽입될 때까지 기다리고 Check for new data 클릭
 6. Index Pattern에 * 작성
 7. Time Filter field name에 `I don`t want to use the Time Filter` 선택, 없으면 스킵
-8. 실시간으로 데이터가 동기화
+8. Refresh 버튼을 눌러 실시간으로 데이터가 동기화되는 모습 확인
 
 
 ##### Port
