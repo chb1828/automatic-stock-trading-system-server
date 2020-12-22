@@ -51,10 +51,10 @@ jobs:
           DOCKER_USER: sugarpowder
           DOCKER_PASS: sugar1234
         run: |
-          print($TAG)
-          print($IMAGE_NAME)
-          print($DOCKER_USER)
-          print($DOCKER_PASS)
+          echo $TAG
+          echo $IMAGE_NAME
+          echo $DOCKER_USER
+          echo $DOCKER_PASS
           . venv/bin/activate
           docker build -t asts .
           docker login -u sugarpowder -p sugar1234
