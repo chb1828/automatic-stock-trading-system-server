@@ -46,10 +46,10 @@ jobs:
         run: echo "Build number is $BUILD_NUMBER"
       - name: Build and push Docker image
         env:
-          TAG=0.1.${BUILD_NUMBER}
-          IMAGE_NAME=asts
-          DOCKER_USER=sugarpowder
-          DOCKER_PASS=sugar1234
+          TAG: 0.1.${BUILD_NUMBER}
+          IMAGE_NAME: asts
+          DOCKER_USER: sugarpowder
+          DOCKER_PASS: sugar1234
         run: |
           print($TAG)
           print($IMAGE_NAME)
