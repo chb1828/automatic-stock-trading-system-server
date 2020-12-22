@@ -34,6 +34,7 @@ jobs:
       - name: Run migrations
         run: |
           . venv/bin/activate
+          python --version
           pip list
           python manage.py check
           python manage.py makemigrations
