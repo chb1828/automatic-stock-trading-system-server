@@ -26,18 +26,18 @@ jobs:
       - name: Checkout
       - uses: actions/checkout@v2
       - name: Setup VirtualEnv
-          run: |
-            echo 'export TAG=0.1.${BUILD_NUMBER}' >> $BASH_ENV
-            echo 'export IMAGE_NAME=asts' >> $BASH_ENV
-            echo 'export DOCKER_USER=sugarpowder' >> $BASH_ENV
-            echo 'export DOCKER_PASS=sugar1234' >> $BASH_ENV
-            virtualenv helloworld
-            . helloworld/bin/acctivate
-            pip install --no-cache-dir -r requirements.txt
+        run: |
+          echo 'export TAG=0.1.${BUILD_NUMBER}' >> $BASH_ENV
+          echo 'export IMAGE_NAME=asts' >> $BASH_ENV
+          echo 'export DOCKER_USER=sugarpowder' >> $BASH_ENV
+          echo 'export DOCKER_PASS=sugar1234' >> $BASH_ENV
+          virtualenv helloworld
+          . helloworld/bin/acctivate
+          pip install --no-cache-dir -r requirements.txt
       - name: Run Test
-          run: |
-            . helloworld/bin/activate
-            python test_hello_world.py
+        run: |
+          . helloworld/bin/activate
+          python test_hello_world.py
       - name: Cache Docker layers
           uses: actions/cache@v2
           with:
@@ -46,9 +46,9 @@ jobs:
             restore-keys: |
             ${{ runner.os }}-buildx-
       - name: Build and push Docker image
-          run: |
-            . helloworld/bin/activate
-            pyinstaller -F hello_world.py
-            docker build -t ${IMAGE_NAME}:$TAG .
-            docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-            docker push ${DOCKER_USER}/${IMAGE_NAME}:$TAG
+        run: |
+          . helloworld/bin/activate
+          pyinstaller -F hello_world.py
+          docker build -t ${IMAGE_NAME}:$TAG .
+          docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+          docker push ${DOCKER_USER}/${IMAGE_NAME}:$TAG
