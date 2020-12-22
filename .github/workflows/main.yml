@@ -20,22 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
 
-    services:
-      postgres:
-        image: postgres:10.2
-        env:
-          POSTGRES_DB: asts
-          POSTGRES_PASSWORD: root
-          POSTGRES_USER: postgres
-        ports:
-          - 5432:5432
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
@@ -51,14 +35,6 @@ jobs:
           . venv/bin/activate
           python -m pip install --upgrade pip
           pip install --no-cache-dir -r requirements.txt
-      - name: Run migrations
-        run: |
-          . venv/bin/activate
-          python --version
-          pip list
-          python manage.py check
-          python manage.py makemigrations
-          python manage.py migrate
 
       - name: Cache Docker layers
         uses: actions/cache@v2
