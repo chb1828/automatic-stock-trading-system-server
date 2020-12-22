@@ -30,9 +30,6 @@ jobs:
           python -m virtualenv venv
           . venv/bin/activate
           pip install --no-cache-dir -r requirements.txt
-      - name: Run migrations
-        run: |
-          python -m virtualenv venv
           python manage.py check
           python manage.py makemigrations
           python manage.py migrate
