@@ -33,6 +33,7 @@ jobs:
       - name: Run migrations
         run: |
           . venv/bin/activate
+          pip list
           python manage.py check
           python manage.py makemigrations
           python manage.py migrate
