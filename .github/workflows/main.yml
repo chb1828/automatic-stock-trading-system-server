@@ -46,6 +46,7 @@ jobs:
         run: echo "Build number is $BUILD_NUMBER"
       - name: Run Tests
         run: |
+          . venv/bin/activate
           pytest
       - name: Build and push Docker image
         env:
