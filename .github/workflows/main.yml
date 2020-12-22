@@ -46,17 +46,13 @@ jobs:
         run: echo "Build number is $BUILD_NUMBER"
       - name: Build and push Docker image
         env:
-          TAG: ${0.1.{BUILD_NUMBER}}
+          TAG: latest
           IMAGE_NAME: asts
           DOCKER_USER: sugarpowder
           DOCKER_PASS: sugar1234
         run: |
-          echo $TAG
-          echo $IMAGE_NAME
-          echo $DOCKER_USER
-          echo $DOCKER_PASS
           . venv/bin/activate
-          docker build -t asts .
-          docker login -u sugarpowder -p sugar1234
-          docker tag asts sugarpowder/asts:latest
-          docker push sugarpowder/asts
+          docker build -t $IMAGE_NAME .
+          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker tag $IMAGE_NAME $DOCKER_USER/$IMAGE_NAME:$TAG
+          docker push $DOCKER_USER/$IMAGE_NAME
