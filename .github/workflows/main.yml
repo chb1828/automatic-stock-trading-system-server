@@ -31,7 +31,7 @@ jobs:
           echo 'export IMAGE_NAME=asts'
           echo 'export DOCKER_USER=sugarpowder'
           echo 'export DOCKER_PASS=sugar1234'
-          python -m pip install --upgrade pip
+          python -m virtualenv venv
           virtualenv helloworld
           . helloworld/bin/acctivate
           pip install --no-cache-dir -r requirements.txt
