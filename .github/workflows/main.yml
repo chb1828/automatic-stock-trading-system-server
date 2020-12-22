@@ -32,9 +32,9 @@ jobs:
           . venv/bin/activate
           pip install --no-cache-dir -r requirements.txt
           pip install django
-          python manage.py check
-          python manage.py makemigrations
-          python manage.py migrate
+          python3 manage.py check
+          python3 manage.py makemigrations
+          python3 manage.py migrate
 
       - name: Cache Docker layers
         uses: actions/cache@v2
