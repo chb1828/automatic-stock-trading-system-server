@@ -45,6 +45,6 @@ jobs:
           echo 'export DOCKER_USER=sugarpowder'
           echo 'export DOCKER_PASS=sugar1234'
           . venv/bin/activate
-          docker build -t $IMAGE_NAME:$TAG .
-          docker login -u $DOCKER_USER -p $DOCKER_PASS
-          docker push $DOCKER_USER/$IMAGE_NAME:$TAG
+          docker build -t asts:$TAG .
+          docker login -u sugarpowder -p sugar1234
+          docker push sugarpowder/asts:$TAG
