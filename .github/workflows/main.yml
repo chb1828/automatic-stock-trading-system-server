@@ -47,4 +47,5 @@ jobs:
           . venv/bin/activate
           docker build -t asts .
           docker login -u sugarpowder -p sugar1234
-          docker push sugarpowder/asts:latest
+          docker tag asts sugarpowder/asts:latest
+          docker push sugarpowder/asts
