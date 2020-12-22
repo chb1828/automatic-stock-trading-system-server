@@ -31,6 +31,7 @@ jobs:
           python -m virtualenv venv
           . venv/bin/activate
           pip install --no-cache-dir -r requirements.txt
+          pip install django
           python manage.py check
           python manage.py makemigrations
           python manage.py migrate
