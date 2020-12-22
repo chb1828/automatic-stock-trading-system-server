@@ -37,7 +37,7 @@ jobs:
           pip install --no-cache-dir -r requirements.txt
       - name: Run Test
         run: |
-          . helloworld/bin/activate
+          . venv/bin/activate
           python test_hello_world.py
       - name: Cache Docker layers
         uses: actions/cache@v2
@@ -48,7 +48,7 @@ jobs:
             ${{ runner.os }}-buildx-
       - name: Build and push Docker image
         run: |
-          . helloworld/bin/activate
+          . venv/bin/activate
           pyinstaller -F hello_world.py
           docker build -t ${IMAGE_NAME}:$TAG .
           docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
