@@ -38,7 +38,7 @@ jobs:
       - name: Run Test
         run: |
           . venv/bin/activate
-          python test_hello_world.py
+          pyinstaller --name=asts manage.py
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
@@ -49,7 +49,6 @@ jobs:
       - name: Build and push Docker image
         run: |
           . venv/bin/activate
-          pyinstaller -F hello_world.py
           docker build -t ${IMAGE_NAME}:$TAG .
           docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
           docker push ${DOCKER_USER}/${IMAGE_NAME}:$TAG
