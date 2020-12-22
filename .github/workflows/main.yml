@@ -31,6 +31,7 @@ jobs:
           echo 'export IMAGE_NAME=asts'
           echo 'export DOCKER_USER=sugarpowder'
           echo 'export DOCKER_PASS=sugar1234'
+          pip install virtualenv
           python -m virtualenv .venv
           . .venv/Scripts/acctivate
           pip install --no-cache-dir -r requirements.txt
