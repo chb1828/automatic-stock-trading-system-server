@@ -33,7 +33,7 @@ jobs:
           echo 'export DOCKER_PASS=sugar1234'
           pip install virtualenv
           python -m virtualenv .venv
-          . .venv/Scripts/acctivate
+          . .venv/bin/acctivate
           pip install --no-cache-dir -r requirements.txt
       - name: Run Test
         run: |
