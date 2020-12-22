@@ -35,10 +35,6 @@ jobs:
           python -m virtualenv venv
           . venv/bin/activate
           pip install --no-cache-dir -r requirements.txt
-      - name: Run Test
-        run: |
-          . venv/bin/activate
-          pyinstaller --name=asts manage.py
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:
