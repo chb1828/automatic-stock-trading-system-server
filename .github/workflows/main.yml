@@ -41,9 +41,13 @@ jobs:
       - name: Build and push Docker image
         run: |
           echo 'export TAG=0.1.${BUILD_NUMBER}'
+          print($TAG)
           echo 'export IMAGE_NAME=asts'
+          print(IMAGE_NAME)
           echo 'export DOCKER_USER=sugarpowder'
+          print($DOCKER_USER)
           echo 'export DOCKER_PASS=sugar1234'
+          print($DOCKER_PASS)
           . venv/bin/activate
           docker build -t asts .
           docker login -u sugarpowder -p sugar1234
