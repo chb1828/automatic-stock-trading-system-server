@@ -3,9 +3,7 @@ version: '3'
 services:
   web:
     image: sugarpowder/asts:latest
-    command: >
-        sh -c "python manage.py migrate &&
-        gunicorn asts.wsgi:application --bind 0.0.0.0:8000"
+    command: gunicorn ASTS.wsgi:application --bind 0.0.0.0:8000"
     expose:
       - "8000"
     restart: always
@@ -13,7 +11,7 @@ services:
       - TZ=Asia/Seoul
       - DB_HOST=db
     volumes:
-    - .:/usr/asts/app
+    - .:/usr/src/app
     ports:
       - "8000:8000"
     depends_on:
@@ -73,7 +71,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - .:/usr/asts/app
+      - .:/usr/src/app
       - ./config/nginx:/etc/nginx.conf.d
     depends_on:
       - web
