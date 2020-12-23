@@ -75,10 +75,10 @@ services:
     image: nginx:1.19.6
     ports:
       - "80:80"
+    volumes_from:
+      - web
     volumes:
-      - .:/usr/src/app
       - ./config/nginx:/etc/nginx/conf.d
-      - ./static/rest_framework:/usr/share/nginx/html/static/rest_framework
     depends_on:
       - web
 volumes:
