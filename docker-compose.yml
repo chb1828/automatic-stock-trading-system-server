@@ -4,7 +4,9 @@ services:
   web:
     image: sugarpowder/asts:latest
     command: >
-        sh -c "python manage.py migrate &&
+        sh -c
+        "python manage.py collectstatic --noinput &&
+        python manage.py migrate &&
         gunicorn ASTS.wsgi:application --bind 0.0.0.0:8000"
     expose:
       - "8000"
@@ -14,6 +16,7 @@ services:
       - DB_HOST=db
     volumes:
     - .:/usr/src/app
+    - ./static/rest_framework:/usr/src/app/static
     ports:
       - "8000:8000"
     depends_on:
@@ -72,8 +75,9 @@ services:
     image: nginx:1.19.6
     ports:
       - "80:80"
+    volumes_from:
+      - web
     volumes:
-      - .:/usr/src/app
       - ./config/nginx:/etc/nginx/conf.d
     depends_on:
       - web
