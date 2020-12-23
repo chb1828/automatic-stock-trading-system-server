@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ feature-44 ]
   pull_request:
-    branches-ignore:  [ main ]
+    branches-ignore:  [ feature-44 ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
