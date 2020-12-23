@@ -2,3 +2,4 @@ django
 psycopg2
 pytest-django
 djangorestframework
+gunicorn
