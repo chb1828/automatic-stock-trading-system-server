@@ -74,7 +74,7 @@ services:
       - "80:80"
     volumes:
       - .:/usr/src/app
-      - ./config/nginx:/etc/nginx.conf.d
+      - ./config/nginx:/etc/nginx/conf.d
     depends_on:
       - web
 volumes:
