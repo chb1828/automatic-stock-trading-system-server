@@ -5,7 +5,7 @@ services:
     image: sugarpowder/asts:latest
     command: >
         sh -c "python manage.py migrate &&
-        python manage.py runserver 0.0.0.0:8000"
+        gunicorn asts.wsgi:application --bind 0.0.0.0:8000"
     expose:
       - "8000"
     restart: always
@@ -13,7 +13,7 @@ services:
       - TZ=Asia/Seoul
       - DB_HOST=db
     volumes:
-    - ./app/:/usr/asts/app/
+    - ./app/:/usr/src/app/
     ports:
       - "8000:8000"
     depends_on:
@@ -58,7 +58,6 @@ services:
       - elasticsearch
     depends_on:
       - elasticsearch
-
   kibana:
     image: docker.elastic.co/kibana/kibana:7.2.0
     ports:
@@ -69,6 +68,15 @@ services:
       - elasticsearch
     depends_on:
       - elasticsearch
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - .:/usr/src/app
+      - ./config/nginx:/etc/nginx.conf.d
+    depends_on:
+      - web
 volumes:
   postgres_data:
   es_data:
