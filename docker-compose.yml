@@ -69,7 +69,7 @@ services:
     depends_on:
       - elasticsearch
   nginx:
-    image: nginx:latest
+    image: nginx:1.19.6
     ports:
       - "80:80"
     volumes:
