@@ -1,6 +1,9 @@
 
 # ignore dynamic folder
 static
+
+# jetbrain file
+.idea/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
