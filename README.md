@@ -9,28 +9,36 @@
 
 아래 포트 번호를 사용해서 app과 kibana에 접속 할 수 있습니다.
 
+##### Port
+* app : 80 (프록시 서버를 이용, 웹 서버 포트는 8000)
+* elasticsearch : 9200,9300
+* postgresql : 5432
+* kibana : 5601
+* logstash :
+
 예시) http://localhost:5601/ <-- kibana 접속
 
-현재 app에 접속하면 자동으로 값이 Postgresql DB에 저장되어 동기화 되고있는 Elasticsearch 에도 값이 저장됩니다. 
+현재 app에 접속해 Postgresql DB의 employee 테이블에 데이터를 추가하면 동기화 되고있는 Elasticsearch 에도 값이 저장됩니다. 
 
 ##### DB에 저장 하는 방법
-1. http://localhost:8000/api 접속
+1. http://localhost/api 접속
 2. department url 클릭
 3. Title 에 넣고싶은 이름 기입후 POST 버튼 클릭
-4. http://localhost:8000/api로 다시 접속
-5. Fullname과 Department는 필수 필드이기 때문에 기입후 POST 버튼 클릭
-6. 저장 완료
+4. http://localhost/api로 다시 접속
+5. employee url 클릭   
+6. Fullname과 Department는 필수 필드이기 때문에 기입후 POST 버튼 클릭
+7. 저장 완료
 
 ##### DB에 수정과 삭제 하는 방법
-1. http://localhost:8000/api/id/  << 직원의 id 값을 추가
+1. http://localhost/api/id/  << 직원의 id 값을 추가
 
-`예시) http://localhost:8000/api/1/` 
+`예시) http://localhost/api/1/` 
 2. 저장과 유사한 방식으로 진행
 3. Fullname 과 Department는 필수 필드이기 때문에 항상 기입
 4. 수정,삭제 완료
 
 ##### 확인하는 방법
-1. http://localhost:8080 접속
+1. http://localhost/api 접속
 2. 부서를 추가하고 직원을 추가
 3. http://localhost:5601 키바나 접속
 4. 키바나 페이지에서 dashboard 로 이동
@@ -39,13 +47,6 @@
 7. Time Filter field name에 `I don`t want to use the Time Filter` 선택, 없으면 스킵
 8. Refresh 버튼을 눌러 실시간으로 데이터가 동기화되는 모습 확인
 
-
-##### Port
-* app : 8000
-* elasticsearch : 9200,9300
-* postgresql : 5432
-* kibana : 5601
-* logstash : 
 
 ---
 ### Docker 모두 삭제
