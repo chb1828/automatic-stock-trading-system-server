@@ -23,7 +23,7 @@
 ##### DB에 저장 하는 방법
 1. http://localhost/api 접속
 2. department url 클릭
-3. Title 에 넣고싶은 이름 기입후 POST 버튼 클릭
+3. Title 에 넣고싶은 이름 기입후 POST 버튼 클릭이번주
 4. http://localhost/api로 다시 접속
 5. employee url 클릭   
 6. Fullname과 Department는 필수 필드이기 때문에 기입후 POST 버튼 클릭
@@ -47,7 +47,14 @@
 7. Time Filter field name에 `I don`t want to use the Time Filter` 선택, 없으면 스킵
 8. Refresh 버튼을 눌러 실시간으로 데이터가 동기화되는 모습 확인
 
-
+##### 개발하는 방법
+1. docker에 sugarpowder/asts:latest 를 제외하고 나머지 모듈이 전부 켜져있어야 한다.
+2. docker-compose up -d 명령어를 실행한 이후에 sugarpowder/asts:latest 만 삭제한다.
+3. docker rm [컨테이너 id값] 을 실행해서 삭제한다.
+4. django를 실행시키기 위해서는 가상환경이 필요한데 virtualenv venv 명령어를 실행해서 생성한다. (python에 virtualenv가 없을시 pip install virtualenv 명령어로 설치)
+5. 설치가 완료되면 venv 파일이 생성되는데 venv 폴더 안에 있는 Scripts폴더에서 activate.bat를 실행하면 가상환경에 접속 할 수있다.
+6. 가상환경에 접속후 프로젝트 디렉토리로 돌아와 pip install -r requirements.txt 명령어를 실행한다.
+7. 마지막으로 python manage.py runserver 명령어를 실행한다. 그러면 수정을 한 이후 확인 해 볼 수 있다.
 ---
 ### Docker 모두 삭제
 
