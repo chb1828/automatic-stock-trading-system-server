@@ -21,5 +21,6 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # create static
+RUN mkdir -p project-static
 RUN python manage.py collectstatic --noinput
 RUN python manage.py migrate
