@@ -55,7 +55,7 @@
 5. 설치가 완료되면 venv 파일이 생성되는데 venv 폴더 안에 있는 Scripts폴더에서 activate.bat를 실행하면 가상환경에 접속 할 수있다.
 6. 가상환경에 접속후 프로젝트 디렉토리로 돌아와 pip install -r requirements.txt 명령어를 실행한다.
 7. python manage.py runserver 명령어를 실행해 django를 시작한다.
-8. http://127.0.0.1:8000/api/ 주소를 통해서 개발을 진행한다.
+8. http://127.0.0.1:8000/api/ 주소를 통해서 개발을 진행한다. (localhost ) 
 ---
 ### Docker 모두 삭제
 
