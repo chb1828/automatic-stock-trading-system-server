@@ -1,5 +1,4 @@
-django
-psycopg2
-pytest-django
-djangorestframework
-gunicorn
+Django==3.1.4
+djangorestframework==3.12.2
+gunicorn==20.0.4
+psycopg2==2.8.6

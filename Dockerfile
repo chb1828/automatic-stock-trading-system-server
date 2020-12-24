@@ -22,4 +22,4 @@ COPY . .
 
 # create static
 RUN mkdir -p project-static
-RUN python manage.py collectstatic --noinput     
+RUN python manage.py collectstatic --noinput
