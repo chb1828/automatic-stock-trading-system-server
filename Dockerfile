@@ -19,7 +19,3 @@ RUN pip install -r requirements.txt
 
 # copy project
 COPY . .
-
-# create static
-RUN mkdir -p project-static
-RUN python manage.py collectstatic --noinput
