@@ -7,6 +7,8 @@ services:
         sh -c
         "python manage.py makemigrations &&
         python manage.py migrate &&
+        mkdir -p project-static &&
+        python manage.py collectstatic --noinput &&
         gunicorn ASTS.wsgi:application --bind 0.0.0.0:8000"
     expose:
       - "8000"
