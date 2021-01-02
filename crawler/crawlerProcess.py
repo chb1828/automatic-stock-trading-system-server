@@ -1,4 +1,6 @@
 import requests
+import time
+import signal
 
 API_HOST = 'https://openapi.naver.com/v1/search/news.json'
 API_CLIENT_ID = 'WspdN2NYUPK3Q4Bhurlj'
@@ -6,6 +8,20 @@ API_CLIENT_SECRET = 'AFSUp_3FsX'
 
 API_HEADERS = {'X-Naver-Client-Id': API_CLIENT_ID,
             'X-Naver-Client-Secret': API_CLIENT_SECRET}
+
+def processInit(msgQueue):
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
+    print("now crawling process has been started and it is wating for kill signal. 섹스")
+    while True:
+        if not msgQueue.empty():
+            if msgQueue.get() == 'exit':
+                break
+        print("crawling process is keep working...")
+        time.sleep(4)
+    print("now crawling process is terminated. wating for parent process to be terminated")
+        
+
+
 
 def main():
     #최신 한 페이지를 받아오는 시험용 코드
