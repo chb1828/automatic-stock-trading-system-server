@@ -15,11 +15,11 @@ class CrawlerConfig(AppConfig):
     verbose_name = 'Crawling Service App for ASTS'
     
     def ready(self):
-        print('Crawler Service App has been loaded. now starting Crawler Process...')
-        global msgQueue
-        global p
-        #장고의 manage.py는 오토리로드기능을 위해서 두 개의 서버를 실행한다고 한다.
+        #장고의 manage.py는 오토리로드기능을 위해서 두 개의 프로세스를 실행한다고 한다.
         if os.environ.get("RUN_MAIN") == "true":
+            print('Crawler Service App has been loaded. now starting Crawler Process...')
+            global msgQueue
+            global p
             p = Process(target=crawlerProcess.processInit, args=(msgQueue,))
             p.start()
             atexit.register(self.sigStopHandler)
