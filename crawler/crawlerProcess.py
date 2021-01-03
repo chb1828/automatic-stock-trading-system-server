@@ -11,17 +11,27 @@ API_HEADERS = {'X-Naver-Client-Id': API_CLIENT_ID,
 
 def processInit(msgQueue):
     signal.signal(signal.SIGINT, signal.SIG_IGN)
-    print("now crawling process has been started and it is wating for kill signal. 섹스")
-    while True:
-        if not msgQueue.empty():
-            if msgQueue.get() == 'exit':
-                break
-        print("crawling process is keep working...")
-        time.sleep(4)
-    print("now crawling process is terminated. wating for parent process to be terminated")
+    time.sleep(4)
+    import django
+    import os
+    #별도 프로세스에서 장고 모델을 사용하기 위해서는 새로운 장고를 초기화해야한다....
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ASTS.settings")
+    if os.environ.get("RUN_CRAWL") != "true" and os.environ.get("RUN_MAIN") == "true":
+        os.environ["RUN_CRAWL"] = 'true'
+        django.setup()
+        print("now crawling process has been started and it is wating for kill signal. 섹스")
+        while True:
+            if not msgQueue.empty():
+                if msgQueue.get() == 'exit':
+                    break
+            work()
+            time.sleep(5)
+        print("now crawling process is terminated. wating for parent process to be terminated")
         
-
-
+def work():
+    from . import models
+    print(models.CrawlingKeyword.objects.all())
+    print("crawling work step has been done. wating for another step...")
 
 def main():
     #최신 한 페이지를 받아오는 시험용 코드
