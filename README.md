@@ -20,6 +20,9 @@
 
 현재 app에 접속해 Postgresql DB의 employee 테이블에 데이터를 추가하면 동기화 되고있는 Elasticsearch 에도 값이 저장됩니다. 
 
+##### API 인증 토큰
+api 호출시 사용하는 토큰 값은 ff35885ab6c63290ccdf60b80a9b37769e287ec5 입니다.
+
 ##### DB에 저장 하는 방법
 1. http://localhost/api 접속
 2. department url 클릭
