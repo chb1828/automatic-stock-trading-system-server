@@ -1,0 +1,1526 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<script type="text/javascript" src="/jquery/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="/comm/jquery-migrate-1.1.1.min.js"></script>
+<script type="text/javascript" src="/jquery/jquery.cookie.js"></script>
+<script type="text/javascript" src="/comm/main.js?v=202005"></script>
+<link rel="stylesheet" type="text/css" href="/css/all.css?v=20200312" />
+
+
+<link rel="stylesheet" type="text/css" href="/css/content.css" />
+
+<script>
+$(document).ready(function() {
+	//ÀüÃ¼¸Þ´º
+	$(".allmn").click(function(){
+		$("#nav_allview").css("display","block");
+	});
+	$(".aclose").click(function(){
+		$("#nav_allview").css("display","none");
+	});
+
+});
+</script>
+<link rel="stylesheet" type="text/css" href="/css/content.css?v=1" />
+<script type="text/javascript" src="https://101.livere.co.kr/B/passport/livere8_passport.js" charset="utf-8"></script>
+<script src="https://apis.google.com/js/platform.js" async defer>
+  {lang: 'ko'}
+</script>
+<script src="//developers.kakao.com/sdk/js/kakao.story.min.js"></script>
+
+<script type="text/javascript">
+<!--
+function FLsubmit()
+{
+	var dj = document.forms.news_login
+	if(dj.userid.value == "" ){
+		alert("¾ÆÀÌµð¸¦ ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.")
+		dj.userid.focus();
+		return;
+	}
+	if(dj.password.value == "" ){
+		alert("¾ÏÈ£¸¦ ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.")
+		dj.password.focus();
+		return;
+	}
+	//document.hiddeframe.src='http://www.kookje.co.krkookje/admin/login_check.asp?userid='+dj.userid.value+'&password='+dj.password.value+'&flag=';
+	dj.submit();
+}
+function check()
+{
+	var df = document.forms.news_commnetInsert
+	if (df.comment.value==""){
+		alert ("³»¿ëÀ» ÀÔ·ÂÇÏ¿© ÁÖ½Ê½Ã¿À.");
+		df.comment.focus();
+	}else if (df.comment.value.length < 10 ){
+		alert ("³»¿ëÀº 10ÀÚ ÀÌ»ó ÀÔ·ÂÇØ ÁÖ¼¼¿ä.");
+		df.comment.focus();
+	}else{
+		df.submit();
+	}
+}
+//ÀÎ¼â
+function SendPrint(nkey,ncode){
+	var pUrl,pWindow;
+	pUrl =  "/news2011/asp/news_print.asp?code=" + ncode + "&key=" + nkey;
+	pWindow = window.open(pUrl, "winPrint", "left=0,top=0,width=700px,scrollbars=1,resizable=1");
+	pWindow.focus();
+}
+//±â»ç½ºÅ©·¦
+function newsScrap(){
+	
+		alert("·Î±×ÀÎ ÈÄ ÀÌ¿ëÇÏ¿© ÁÖ½Ê½Ã¿À.")
+		location.href="/kookje/admin/login.asp";
+		return;
+	
+}
+function win_YK(filename,winhow) 
+{
+	
+}
+
+function sendTwitter(stitle, surl) { 
+	var wp = window.open("https://twitter.com/intent/tweet?text="+encodeURI(stitle)+"&url="+encodeURIComponent(encodeURI(surl)),'twitter',''); 
+	if(wp) { 
+		wp.focus(); 
+	}
+} 
+/*
+function sendTwitter(stitle, surl) { 
+
+	var wp = window.open("http://twitter.com/home?status="+encodeURIComponent(stitle)+" "+encodeURIComponent(surl),'twitter',''); 
+	if(wp) { 
+		wp.focus(); 
+	} 
+}*/
+ 
+function sendFaceBook(stitle,surl) { 
+	var wp = window.open("http://www.facebook.com/sharer.php?u="+encodeURIComponent(surl)+"&t="+encodeURIComponent(stitle),'facebook', 'width=600px,height=420px'); 
+	if(wp) { 
+		wp.focus(); 
+	} 
+} 
+
+function sendNaver() {
+	var naver_send_url = encodeURI(encodeURIComponent(_getArticleLink()));
+	var naver_send_title = encodeURI(encodeURIComponent(_getArticleTitle()));
+	var naver_shareURL = "https://share.naver.com/web/shareView.nhn?url=" + naver_send_url + "&title=" + naver_send_title;
+	windowOpen (naver_shareURL, 600, 500, 0, 0, 'yes');
+}
+
+function sendKakaoStory() {
+	Kakao.init('6dfa8e516b54d33622cc569a1a05388c');
+	Kakao.Story.share({
+		url: _getArticleLink(),
+		text: _getArticleTitle()+' #±¹Á¦½Å¹®'
+	});
+}
+
+
+$(document).ready(function() {
+
+	$(".fzoom").click(function() { //±ÛÀÚ È®´ë Ãà¼Ò
+		var $speech = $(".news_article");
+		var currentSize = $speech.css("fontSize");	/* ÆùÆ®»çÀÌÁî¸¦ ¾Ë¾Æ³½´Ù. */
+		var lineHeightSize = $speech.css("line-height");	/* line-height¸¦ ¾Ë¾Æ³½´Ù. */
+		var num = parseFloat(currentSize, 10);	/* parseFloat()Àº ¼ýÀÚ°¡ ¾Æ´Ï¸é ¼ýÀÚ°¡ ¾Æ´Ï¶ó´Â ¶æÀÇ NaNÀ» ¹ÝÈ¯ÇÑ´Ù. */
+		var line = parseFloat(lineHeightSize, 10);
+		var unit = currentSize.slice(-2);	/* ³¡¿¡¼­ºÎÅÍ µÎÀÚ¸®ÀÇ ¹®ÀÚ¸¦ °¡Á®¿Â´Ù. */
+		var lineunit = lineHeightSize.slice(-2);
+
+		if(this.id == "switcher-large"){
+			if (num < 25){
+				num += 2;
+				line += 2;
+			}
+		} else if(this.id == "switcher-small") {
+			if (num > 12){
+				num -= 2;
+				line -= 2;
+			}
+		}
+
+		$speech.css("fontSize", num + unit);
+		$speech.css("line-height", line + lineunit);
+
+	});
+
+	//ÁÂÃø Äü °øÀ¯ ¸Þ´º
+	$(window).bind('scroll', function () {
+			var articleH = $(".news_article").css('height');	
+			var num = parseFloat(articleH, 10);
+			if ($(window).scrollTop() < num && $(window).scrollTop() > 370) {
+					$('.news_share_sns').addClass('fixed');
+					$('.news_share_sns').css('top','10px');
+			} else {
+					$('.news_share_sns').removeClass('fixed');
+			}
+	});
+
+});
+//-->
+</script>
+<meta name="description" content="ºÎ»êÁö¿ª ÈÖ¹ßÀ¯ °¡°ÝÀÌ 10°³¿ù¿© ¸¸¿¡ §¤´ç 1400¿ø´ë·Î ¿Ã¶ó¼¹´Ù.    10ÀÏ ÇÑ±¹¼®À¯°ø»çÀÇ À¯°¡Á¤º¸ ¼­ºñ½º ¡®¿ÀÇÇ³Ý¡¯¿¡ µû¸£¸é ÀÌ´Þ Ã¹Â° ÁÖ(4~7ÀÏ) ºÎ»ê" />
+<meta property="og:title" content="ºÎ»ê ÈÖ¹ßÀ¯ °ª §¤´ç 1400¿ø´ë¡¦8ÁÖÂ° ¿À¸§¼¼">
+<meta property="og:url" content="http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20210111.33013002560">
+<meta property="og:site" content="http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20210111.33013002560">
+<meta property="og:image" content="http://db.kookje.co.kr/news2000/photo/2021/0111/L20210111.33013002560i1.jpg">
+<meta property="og:site_name" content="±¹Á¦½Å¹®">
+<meta property="og:description" content="ºÎ»êÁö¿ª ÈÖ¹ßÀ¯ °¡°ÝÀÌ 10°³¿ù¿© ¸¸¿¡ §¤´ç 1400¿ø´ë·Î ¿Ã¶ó¼¹´Ù.    10ÀÏ ÇÑ±¹¼®À¯°ø»çÀÇ À¯°¡Á¤º¸ ¼­ºñ½º ¡®¿ÀÇÇ³Ý¡¯¿¡ µû¸£¸é ÀÌ´Þ Ã¹Â° ÁÖ(4~7ÀÏ) ºÎ»ê..">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:url" content="http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20210111.33013002560" />
+<meta name="twitter:title" content="ºÎ»ê ÈÖ¹ßÀ¯ °ª §¤´ç 1400¿ø´ë¡¦8ÁÖÂ° ¿À¸§¼¼" />
+<meta name="twitter:description" content="ºÎ»êÁö¿ª ÈÖ¹ßÀ¯ °¡°ÝÀÌ 10°³¿ù¿© ¸¸¿¡ §¤´ç 1400¿ø´ë·Î ¿Ã¶ó¼¹´Ù.    10ÀÏ ÇÑ±¹¼®À¯°ø»çÀÇ À¯°¡Á¤º¸ ¼­ºñ½º ¡®¿ÀÇÇ³Ý¡¯¿¡ µû¸£¸é ÀÌ´Þ Ã¹Â° ÁÖ(4~7ÀÏ) ºÎ»ê.." />
+<meta name="twitter:image:src" content="http://db.kookje.co.kr/news2000/photo/2021/0111/L20210111.33013002560i1.jpg" />
+<meta name="twitter:site" content="@busaninews" />
+<link rel="canonical" href="http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20210111.33013002560" />
+
+<meta name="news_keywords" content="±â¸§°ª,ºÎ»ê ÈÖ¹ßÀ¯ °ª §¤´ç 1400¿ø´ë¡¦8ÁÖÂ° ¿À¸§¼¼"/>
+
+<!--Çìµå Å¸ÀÌÆ² Ç¥½Ã¿ë-->
+
+<title>ºÎ»ê ÈÖ¹ßÀ¯ °ª §¤´ç 1400¿ø´ë¡¦8ÁÖÂ° ¿À¸§¼¼ : ±¹Á¦½Å¹®</title>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20527629-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script type="text/javascript" src="//wcs.naver.net/wcslog.js"></script>
+<script type="text/javascript">
+if(!wcs_add) var wcs_add = {};
+wcs_add["wa"] = "ccfb810f6241f";
+wcs_do();
+</script>
+
+<style type="text/css">
+/*³»¸¾ÀÇ ±Ù±³»ê*/
+#sanquickLink { position:fixed;left:60%; bottom:50px; width:246px; height:220px;z-index:9999;}
+</style>
+</head>
+
+<body>
+<div style="position:absolute;right:5px;top:5px;font-size:1em;font-weight:bold;color:#f6f6f6;">4</div>
+
+<div id="skipnav">
+<ul>
+<li><a href="#wrap">º»¹® ¹Ù·Î°¡±â</a></li>
+</ul>
+</div>
+
+<div id="header">
+<div id="gnb_line">
+<div id="gnb">
+	<div class="gnb_left">
+		<ul>
+		<li><a href="https://www.facebook.com/BUSANNEWS" target="_blank" title="±¹Á¦½Å¹® ÆäÀÌ½ººÏ"><img src="/kookje/image_new/sns_facebook.png" alt="±¹Á¦½Å¹® ÆäÀÌ½ººÏ" /></a></li>
+		<li><a href="https://twitter.com/busaninews" target="_blank" title="±¹Á¦½Å¹® Æ®À§ÅÍ"><img src="/kookje/image_new/sns_twitter.png" alt="±¹Á¦½Å¹® Æ®À§ÅÍ" /></a></li>
+		<li><a href="https://pf.kakao.com/_rhhxmd" target="_blank" title="±¹Á¦½Å¹® Ä«Ä«¿ÀÅåÃ¤³Î"><img src="/kookje/image_new/sns_cacaostory.png" alt="±¹Á¦½Å¹® Ä«Ä«¿ÀÅåÃ¤³Î" /></a></li>
+		<li><a href="https://www.youtube.com/busannews" target="_blank" title="±¹Á¦½Å¹® À¯Æ©ºê"><img src="/kookje/image_new/sns_youtube.png" alt="±¹Á¦½Å¹® À¯Æ©ºê" /></a></li>
+		<li><a href="https://m.post.naver.com/ikookje" target="_blank" title="±¹Á¦½Å¹® ³×ÀÌ¹öÆ÷½ºÆ®"><img src="/kookje/image_new/sns_np.png" alt="±¹Á¦½Å¹® ³×ÀÌ¹öÆ÷½ºÆ®" /></a></li>
+		</ul>
+	</div>
+
+
+	<div class="gnb_right">
+	<ul>
+	
+	<li><a href="http://www.kookje.co.kr/kookje/admin/login.asp">·Î±×ÀÎ</a></li>
+	<li><a href="http://www.kookje.co.kr/kookje/admin/register_new.asp">È¸¿ø°¡ÀÔ</a></li>
+	
+	<li><a href="/service/pdf/">Áö¸éº¸±â</a></li>
+	<li><a href="/kookje/marketing_request.asp" target="_blank">±¸µ¶½ÅÃ»</a></li>
+	<li style="cursor:pointer;" onclick="TopMenuShow('mobile'); return false;"><a href="#">¸ð¹ÙÀÏÀÌ¿ë¾È³»</a></li>
+	<!--¸ð¹ÙÀÏÆË¾÷ s-->
+	<div id="mobile" style="display:none;">
+		<div id="mobile_main">
+			<div id="mobile_title"><img src="/kookje/images/top/mobile_title.png"></div>
+			
+			<img onClick="TopMenuHide('mobile'); return false;" id="mobile_close" src="/kookje/images/top/mobile_close.png">
+			<div id="mobile_kookje">
+				<div class="cord_img"><img src="/kookje/images/top/kookje_QR.gif"></div>
+				<div class="mobile_con">
+					<div class="title_02"><a href="http://m.site.naver.com/qrcode/view.nhn?v=09oFu" target="_blank">±¹Á¦½Å¹® APP</a></div>
+					<div class="mobile_con_con"><a href="http://m.site.naver.com/qrcode/view.nhn?v=09oFu" target="_blank">1947³â Ã¢°£ÇÑ ºÎ»ê °æ³² ¿ï»ê<br> Áö¿ª ´ëÇ¥ ¾ð·Ð»çÀÔ´Ï´Ù.</a></div>
+					<div>
+						<div class="btn_align"><a href="http://market.android.com/details?id=com.yjmedia.android.phone.kookje" target="_blank"><img src="/kookje/images/top/google_btn.gif"></a></div>
+						<div><!--<a href="https://itunes.apple.com/kr/app/id992678267" target="_blank"><img src="/kookje/images/top/apple_btn.gif"></a>-->&nbsp;</div>
+					</div>
+				</div>
+			</div>
+			<div id="mobile_web"><a href="http://www.kookje.co.kr/news2011/mobile/mobile_guide.asp"><img src="/kookje/images/top/web_btn.gif"></a></div>
+		</div>
+	</div>
+	<!--¸ð¹ÙÀÏÆË¾÷ e-->
+
+	</ul>
+	</div>
+</div>
+</div>
+<!--gnb-->
+
+<div id="header_box_line">
+<div id="header_box">
+
+<div class="tleft"><iframe src="http://bn.weatheri.co.kr/kookje/weather3.html" width="180" height="70" scrolling="no" frameborder="0" style="margin-left:-8px;"></iframe>
+<!--<a href="http://www.weatheri.co.kr/" target="_blank" class="right space_normal f_darkgray" style="text-decoration:none;font-size:11px;margin-top:-30px;font-family:'malgun gothic'">»ó¼¼º¸±â</a>--><!--±¸±Û±¤°í ÀÓ½Ã ÁÖ¼®Ã³¸®--></div>
+
+<h1 id="logo">
+
+<a href="/"><img src="/kookje/images/top/logo.png" alt="±¹Á¦½Å¹®"></a>
+
+</h1>
+
+
+  <div class="search-box">  
+		<form name="quick_search" method="post" action="/news2011/asp/search.asp" onSubmit="">
+				<input type="search" class="search-txt kwd" placeholder="°Ë»ö¾î¸¦ ÀÔ·ÂÇÏ¼¼¿ä" name="stitle" maxlength="30" class="kwd" onKeyPress="if (event.KeyCode==13) document.quick_search.submit()">
+				<input type="submit" class="search-btn" value="" id="search_ok">
+		</form>
+  </div>
+
+
+
+</div>
+</div>
+<!--header_box-->
+
+<!--nav-->
+
+
+<!--
+            <li><a href='/news2011/asp/list.asp?code=0600&amp;kwd=±¹³»¿¬¿¹'>±¹³»¿¬¿¹</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0600&amp;kwd=ÇØ¿Ü¿¬¿¹'>ÇØ¿Ü¿¬¿¹</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0550'>¿µÈ­</a></li> 
+            <li><a href='/news2011/asp/list.asp?code=0530'>À½¾Ç</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0600&amp;kwd=º¼¸¸ÇÑ TV'>º¼¸¸ÇÑ TV</a></li>
+            <li><a href='/news2011/asp/list.asp?code=1900'>¸¸È­</a></li>
+-->
+
+      <div id="nav_allview">
+      <div id="allmenu">
+<div class="aclose"><a><img src="/kookje/image_new/allclose.png" style="width:40px;" /></a></div>
+<h2>ÀüÃ¼¸Þ´º</h2>
+
+<div class="p1all">
+<h3><a href="/">´º½º</a></h3>
+<ul>
+								<li><a href="/news2011/asp/list_news.asp?code=00&amp;vHeadTitle=¼Óº¸">¼Óº¸</a></li>
+								<li><a href="/news2011/asp/issue.asp?vHeadTitle=¿À´ÃÀÌ½´">¿À´ÃÀÌ½´</a></li>
+								<li><a href="/news2011/asp/sub.htm?code=0100&amp;vHeadTitle=Á¤Ä¡">Á¤Ä¡</a></li>
+								<li><a href="/news2011/asp/sub.htm?code=0200&amp;vHeadTitle=°æÁ¦">°æÁ¦</a></li>
+								<li><a href="/news2011/asp/sub.htm?code=0300&amp;vHeadTitle=»çÈ¸">»çÈ¸</a></li>
+								<li><a href="/news2011/asp/sub.htm?code=0400&amp;vHeadTitle=±¹Á¦">±¹Á¦</a></li>
+								<li><a href="/news2011/asp/sub.htm?code=0500&amp;vHeadTitle=¹®È­">¹®È­</a></li>
+								<li><a href="/news2011/asp/sub.htm?code=0700&amp;vHeadTitle=¶óÀÌÇÁ">LIFE</a></li>
+								<li><a href="/news2011/asp/sub.htm?code=0800&amp;vHeadTitle=IT/°úÇÐ">IT/°úÇÐ</a></li>
+</ul>
+</div>
+
+<div class="p1all">
+<h3><a href="/news2011/asp/sports_enter.asp?code=0600">½ºÆ÷Ã÷¡¤¿¬¿¹</a></h3>
+<ul>
+								<li><a href="/news2011/asp/list.asp?code=0610">½ºÆ÷Ã÷ ¼Óº¸</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0610">¾ß±¸</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0620">Ãà±¸</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0640">¹è±¸</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0630">³ó±¸</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0650">°ñÇÁ</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0600&amp;kwd=±¹³»¿¬¿¹">±¹³»¿¬¿¹¼Ò½Ä</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0600&amp;kwd=ÇØ¿Ü¿¬¿¹">ÇØ¿Ü¿¬¿¹¼Ò½Ä</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0550">¿µÈ­</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0530">À½¾Ç</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0600&amp;kwd=º¼¸¸ÇÑ TV">º¼¸¸ÇÑTV</a></li>
+</ul>
+</div>
+
+<div class="p1all">
+<h3><a href="/news2011/asp/sub.htm?code=1600&amp;vHeadTitle=ÁÖ¸»¿£">ÁÖ¸»¿£</a></h3>
+<ul>
+								<li><a href="/news2011/asp/list.asp?code=1600">ÃÖ½Å±â»ç</a></li>
+								<li><a href="/news2011/asp/mountain/mountain.asp?code=2200">±Ù±³»ê</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0760">¸À</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0740">Æ®·»µå</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0770">¿©Çà</a></li>
+</ul>
+</div>
+<div class="p1all">
+<h3><a href="/news2011/asp/sub.htm?code=1700&vHeadTitle=¿ÀÇÇ´Ï¾ð">¿ÀÇÇ´Ï¾ð</a></h3>
+<ul>
+								<li><a href="/news2011/asp/list.asp?code=1700">ÃÖ½ÅÄ®·³</a></li>
+								<li><a href="/news2011/asp/list.asp?code=1710">»ç¼³</a></li>
+								<li><a href="/news2011/asp/list.asp?code=1740">µµÃ»µµ¼³</a></li>
+								<li><a href="/news2011/asp/list.asp?code=1720&amp;clss_cd=021049">ÀåÀç°ÇÄ®·³</a></li>
+								<li><a href="/news2011/asp/list.asp?code=1720&amp;clss_cd=0217">±¹Á¦Ä®·³</a></li>
+								<li><a href="/news2011/asp/list.asp?code=1720&amp;clss_cd=021039">¿ÍÀÌµåÄ®·³</a></li>
+								<li><a href="/news2011/asp/list.asp?code=1720&amp;clss_cd=021050">°­µ¿¼öÀÇ ¼¼¼³»ç¼³</a></li>
+								<li><a href="/news2011/asp/list.asp?code=1720&amp;clss_cd=0229">¿ÜºÎÄ®·³</a></li>
+								<li><a href="/news2011/asp/list.asp?code=1750">µ¥½ºÅ©½Ã°¢</a></li>
+								<li><a href="/news2011/asp/list.asp?code=1720&amp;clss_cd=021001">´º½º¿ÍÇöÀå¡¤±âÀÚ¼öÃ¸</a></li>
+								<li><a href="/news2011/asp/list.asp?code=1720&amp;clss_cd=0227">¿ÈºÎÁî¸ÇÄ®·³</a></li>
+</ul>
+</div>
+<div class="p1all">
+<h3><a href="/news2011/asp/video.asp?code=1000">Æ÷Åä¡¤µ¿¿µ»ó</a></h3>
+<ul>
+								<li><a href="/news2011/asp/video.asp?code=1000">µ¿¿µ»óÁ¾ÇÕ</a></li>
+								<li><a href="/news2011/asp/photo.asp?code=0900">Æ÷ÅäÁ¾ÇÕ</a></li>
+</ul>
+</div>
+<div class="p1all">
+<h3><a href="people.asp?code=2100">»ç¶÷µé</a></h3>
+<ul>
+								<li><a href="/news2011/asp/list.asp?code=2100">ÀüÃ¼º¸±â</a></li>
+								<li><a href="/news2011/asp/list.asp?code=2110">ÀÎ¹°</a></li>
+								<li><a href="/bbs/event_list_2.asp?code=2120">ÀÎ»ç</a></li>
+								<li><a href="/bbs/event_list_2.asp?code=2130">¸ðÀÓ</a></li>
+								<li><a href="/bbs/event_list_2.asp?code=2140">°³¾÷</a></li>
+								<li><a href="/bbs/event_list_2.asp?code=2150">°áÈ¥</a></li>
+								<li><a href="/bbs/event_list_2.asp?code=2160">Ãâ»ê</a></li>
+								<li><a href="/bbs/event_list_2.asp?code=2170">µ¿Á¤</a></li>
+								<li><a href="/bbs/event_list_2.asp?code=2180">ºÎ°í</a></li>
+								<li><a href="/bbs/event_list_2.asp?code=2191">º»»ç³»¹æ</a></li>
+<!--								<li><a href="/news2011/asp/citizen/citizen.asp?code=8800">½Ã¹Î±âÀÚ</a></li>
+								<li><a href="/news2011/asp/collegian/collegian_intro.asp?cSub_chk=X1">´ëÇÐ»ý</a></li>-->
+								<li><a href="/news2011/asp/teenager.asp?code=0850">Áß°í»ý</a></li>
+</ul>
+</div>
+
+<div class="p1all">
+<h3><a href="people.asp?code=2100">±âÅ¸</a></h3>
+<ul>
+								<li><a href="/news2011/asp/list.asp?code=2040">ÇÑÀÚ»êÃ¥</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0260">º¹±Ç</a></li>
+								<li><a href="/news2011/asp/list.asp?code=0580">¹ÙµÏ</a></li>
+								<li><a href="/news2011/asp/list.asp?code=1910">±×¸²Ã¢</a></li>
+								<li><a href="http://kookje.incruit.com/" target="_blank">±¸ÀÎ±¸Á÷</a></li>
+								<li><a href="http://www.r114.co.kr/" target="_blank">ºÎµ¿»ê</a></li>
+								<li><a href="http://kookje.ykbook.com/" target="_blank">µµ¼­</a></li>
+								<li><a href="list.asp?code=1800">¾Ë¸²¡¤»ç°í</a></li>
+								<li><a href="/bbs/board_list_2.asp?board_no=1">µ¶ÀÚÅõ°í</a></li>
+								<li><a href="/bbs/board_list_2.asp?board_no=2">µ¶ÀÚÁ¦º¸</a></li>
+								<li><a href="/bbs/leisure_list_2.asp?code=2200">ÁÖ°£»êÇà¾È³»</a></li>
+</ul>
+</div>
+
+<div class="p1all">
+<h3>È¸»ç¼Ò°³</h3>
+<ul>                  
+								<li><a href="/kookje/ceo_message.asp" target="_blank">È¸»ç¼Ò°³</a></li>
+								<li><a href="/kookje/ceo_message.asp" target="_blank">È¸»ç¼Ò°³</a></li>
+								<li><a href="/kookje/marketing_request.asp" target="_blank">±¸µ¶½ÅÃ»</a></li>
+								<li><a href="/kookje/cor_formation.asp" target="_blank">ÀüÈ­¾È³»</a></li>
+								<li><a href="/kookje/adver_ad.asp" target="_blank">±¤°í¾È³»</a></li>
+								<li><a href="/kookje/admin/kookje_guide.asp">°³ÀÎÁ¤º¸Ãë±Þ¹æÄ§</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+<!--allmenu-->
+      </div><!--nav e-->
+
+<div id="menu_nav_line">
+<div id="menu_nav">
+<a><span class="allmn">ÀüÃ¼</span></a>
+
+<ul class="news_menu">
+<li><a class='on' href='/' >´º½º</a>
+<div class="dep2"><div class="d2">
+  <ul>
+  <li><a href="/news2011/asp/list_news.asp?code=00&vHeadTitle=¼Óº¸">¼Óº¸</a></li>
+  <li><a href="/news2011/asp/issue.asp?vHeadTitle=¿À´ÃÀÌ½´">¿À´ÃÀÌ½´</a></li>
+  <li><a href="/news2011/asp/sub.htm?code=0100&vHeadTitle=Á¤Ä¡">Á¤Ä¡</a></li>
+  <li><a href="/news2011/asp/sub.htm?code=0200&vHeadTitle=°æÁ¦">°æÁ¦</a></li>
+  <li><a href="/news2011/asp/sub.htm?code=0300&vHeadTitle=»çÈ¸">»çÈ¸</a></li>
+  <li><a href="/news2011/asp/sub.htm?code=0400&vHeadTitle=±¹Á¦">±¹Á¦</a></li>
+  <li><a href="/news2011/asp/sub.htm?code=0500&vHeadTitle=¹®È­">¹®È­</a></li>
+  <li><a href="/news2011/asp/sub.htm?code=0700&vHeadTitle=¶óÀÌÇÁ">LIFE</a></li>
+  <li><a href="/news2011/asp/sub.htm?code=0800&vHeadTitle=IT°úÇÐ">IT/°úÇÐ</a></li>
+  <li><a href="/news2011/asp/series.htm">±âÈ¹½Ã¸®Áî</a></li>
+  </ul>
+</div></div>
+</li>
+<li><a  href='/news2011/asp/sports_enter.asp?code=0600' >½ºÆ÷Ã÷¡¤¿¬¿¹</a>
+<div class="dep2"><div class="d2">
+  <ul>
+            <li><a href='/news2011/asp/list.asp?code=0600'>½ºÆ÷Ã÷ ¼Óº¸</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0610'>¾ß±¸</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0620'>Ãà±¸</a></li>       
+            <li><a href='/news2011/asp/list.asp?code=0640'>¹è±¸</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0630'>³ó±¸</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0650'>°ñÇÁ</a></li> 
+            <li><a href='/news2011/asp/list.asp?code=0660'>°ÝÅõ±â</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0699'>½ºÆ÷Ã÷±âÅ¸</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0600&amp;kwd=±¹³»¿¬¿¹'>±¹³»¿¬¿¹</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0600&amp;kwd=ÇØ¿Ü¿¬¿¹'>ÇØ¿Ü¿¬¿¹</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0550'>¿µÈ­</a></li> 
+            <li><a href='/news2011/asp/list.asp?code=0530'>À½¾Ç</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0600&amp;kwd=º¼¸¸ÇÑ TV'>º¼¸¸ÇÑ TV</a></li>
+            <li><a href='/news2011/asp/list.asp?code=1900'>¸¸È­</a></li>
+  </ul>
+</div></div>
+
+</li>
+<li><a  href='/news2011/asp/sub.htm?code=1600&amp;vHeadTitle=ÁÖ¸»¿£' >ÁÖ¸»¿£</a>
+<div class="dep2"><div class="d2">
+  <ul>
+            <li><a href='/news2011/asp/list.asp?code=1600'>ÃÖ½Å±â»ç</a></li>
+            <!--<li><a href='/news2011/asp/list.asp?code=1610'>Ä¿¹ö½ºÅä¸®</a></li>-->
+            <li><a href='/news2011/asp/mountain/mountain.asp?code=2200'>±Ù±³»ê</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0760'>¸À</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0740'>Æ®·»µå</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0770'>¿©Çà</a></li>
+  </ul>
+</div></div>
+</li>
+<li><a  href='/news2011/asp/sub.htm?code=1700&vHeadTitle=¿ÀÇÇ´Ï¾ð' >¿ÀÇÇ´Ï¾ð</a>
+<div class="dep2"><div class="d2">
+  <ul>
+            <li><a href='/news2011/asp/list.asp?code=1700'>ÃÖ½ÅÄ®·³</a></li>
+            <li><a href='/news2011/asp/list.asp?code=1710'>»ç¼³</a></li>
+            <li><a href='/news2011/asp/list.asp?code=1740'>µµÃ»µµ¼³</a></li>
+            <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021049'>ÀåÀç°ÇÄ®·³</a></li>
+            <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0217'>±¹Á¦Ä®·³</a></li>
+            <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021039'>¿ÍÀÌµåÄ®·³</a></li>
+            <!--<li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021050'>°­µ¿¼öÀÇ ¼¼¼³»ç¼³</a></li>-->
+            <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0229'>¿ÜºÎÄ®·³</a></li>   
+            <li><a href='/news2011/asp/list.asp?code=1750'>µ¥½ºÅ©½Ã°¢</a></li>
+            <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021037'>´º½º¿ÍÇöÀå¡¤±âÀÚ¼öÃ¸</a></li>
+            <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0227'>¿ÈºÎÁî¸ÇÄ®·³</a></li>
+  </ul>
+</div></div>
+</li>
+<li><a  href='/news2011/asp/video.asp?code=1000'>Æ÷Åä¡¤µ¿¿µ»ó</a>
+<div class="dep2"><div class="d2">
+  <ul>
+            <li><a href='/news2011/asp/video.asp?code=1000'>µ¿¿µ»óÁ¾ÇÕ</a></li>
+            <li><a href='/news2011/asp/photo.asp?code=0900'>Æ÷ÅäÁ¾ÇÕ</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0906'>½ºÆ÷Ã÷</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0921'>Çà»çÇöÀå</a></li>
+            <li><a href='/news2011/asp/list.asp?code=0924'>¾ÆÄ§ÀÇ °¶·¯¸®</a></li>
+  </ul>
+</div></div>
+
+</li>
+<li><a  href='/news2011/asp/people.asp?code=2100' >»ç¶÷µé</a>
+<div class="dep2"><div class="d2">
+  <ul>
+            <li><a href='/news2011/asp/list.asp?code=2100'>ÀüÃ¼º¸±â</a></li>
+            <li><a href='/news2011/asp/list.asp?code=2110'>ÀÎ¹°</a></li>
+            <li><a href='/bbs/event_list_2.asp?code=2120'>ÀÎ»ç</a></li>       
+            <li><a href='/bbs/event_list_2.asp?code=2130'>¸ðÀÓ</a></li>
+            <li><a href='/bbs/event_list_2.asp?code=2140'>°³¾÷</a></li>
+            <li><a href='/bbs/event_list_2.asp?code=2150'>°áÈ¥</a></li>     
+            <li><a href='/bbs/event_list_2.asp?code=2160'>Ãâ»ê</a></li>
+            <li><a href='/bbs/event_list_2.asp?code=2170'>µ¿Á¤</a></li>
+            <li><a href='/bbs/event_list_2.asp?code=2180'>ºÎ°í</a></li>     
+            <li><a href='/bbs/event_list_2.asp?code=2191'>º»»ç³»¹æ</a></li>
+  <!--<li><a href="">´ëÇÐ»ý</a></li>-->
+  <li><a href='/news2011/asp/teenager.asp?code=0850'>Áß°í»ý</a></li>
+
+  </ul>
+</div></div>
+</li>
+<li class="prm"><a  href='/news2011/asp/lists.asp?clss_cd=3101' >´ëÇÐ´º½º</a>
+<div class="dep2"><div class="d2">
+  <ul>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310110'>°æ¼º´ëÇÐ±³</a></li> 
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310103'>µ¿¸í´ëÇÐ±³</a></li> 
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310111'>µ¿¼­´ëÇÐ±³</a></li> 
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310107'>µ¿¾Æ´ëÇÐ±³</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310105'>µ¿ÀÇ´ëÇÐ±³</a></li> 
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310102'>ºÎ°æ´ëÇÐ±³</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310112'>ºÎ»ê°¡Åç¸¯´ëÇÐ±³</a></li> 
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310101'>ºÎ»ê´ëÇÐ±³</a></li> 
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310104'>ºÎ»ê¿Ü±¹¾î´ëÇÐ±³</a></li>     
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310113'>½Å¶ó´ëÇÐ±³</a></li>     
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310108'>¿ÍÀÌÁîÀ¯(¿µ»ê´ë)</a></li> 
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310106'>ÀÎÁ¦´ëÇÐ±³</a></li> 
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310109'>ÇÑ±¹ÇØ¾ç´ëÇÐ±³</a></li> 
+  </ul>
+</div></div>
+
+</li>
+<li class="prm"><a  href='/news2011/asp/lists.asp?clss_cd=3102' >Àü¹®´ë´º½º</a>
+<div class="dep2"><div class="d2">
+  <ul>
+            <li class="s"><a href='/news2011/asp/lists.asp?clss_cd=310201'>°æ³²Á¤º¸´ëÇÐ±³</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310202'>µ¿ÀÇ°úÇÐ´ëÇÐ±³</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310204'>µ¿ÁÖ´ëÇÐ±³</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310205'>ºÎ»ê°æ»ó´ëÇÐ±³</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310203'>ºÎ»ê°úÇÐ±â¼ú´ëÇÐ±³</a></li>
+  </ul>
+</div></div>
+</li>
+<li class="prm"><a  href='/news2011/asp/lists.asp?clss_cd=3103' >ÇàÁ¤´º½º</a>
+<div class="dep2"><div class="d2">
+  <ul>
+            <li class="s1"><a href='/news2011/asp/lists.asp?clss_cd=310308'>°­¼­±¸Ã»</a></li>
+			<li><a href='/news2011/asp/lists.asp?clss_cd=310315'>±ÝÁ¤±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310301'>±âÀå±ºÃ»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310311'>³²±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310314'>µ¿±¸Ã»</a></li>
+			<li><a href='/news2011/asp/lists.asp?clss_cd=310306'>µ¿·¡±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310307'>ºÎ»êÁø±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310304'>ºÏ±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310305'>»ç»ó±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310302'>»çÇÏ±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310312'>¼­±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310309'>¼ö¿µ±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310310'>¿¬Á¦±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310313'>¿µµµ±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310303'>Áß±¸Ã»</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310316'>ÇØ¿î´ë±¸Ã»</a></li>
+  </ul>
+</div></div>
+</li>
+<li class="prm"><a  href='/news2011/asp/lists.asp?clss_cd=3104' >º¸°Ç¡¤È¯°æ´º½º</a>
+<div class="dep2"><div class="d2">
+  <ul>
+            <li class="s" style="margin-left:150px;"><a href='/news2011/asp/lists.asp?clss_cd=310403'>°í½Å´ëÇÐ±³º¹À½º´¿ø</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310404'>ºÎ»êÈ¯°æ°ø´Ü</a></li>
+            <li><a href='/news2011/asp/lists.asp?clss_cd=310402'>ÇÑ±¹°Ç°­°ü¸®ÇùÈ¸ ºÎ»êÁöºÎ</a></li>
+  </ul>
+</div></div>
+</li>
+
+
+
+</ul>
+
+
+<div class="dep3"><div class="d3">
+              <ul class='subNav02 '>
+                <li><a href='/news2011/asp/list.asp?code=0100'>ÀÌ ºÐ·ùÀÇ ¼Óº¸</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0110'>Ã»¿Í´ë/´ëÅë·É</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0120'>±¹È¸/Á¤´ç</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0130'>³²ºÏÇÑ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0140'>¼±°Å</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0150'>Áö¹æÁ¤Ä¡</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0160'>±¹¹æ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0170'>Á¤Ã¥</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0180'>¿Ü±³</a></li>
+              </ul>
+
+              <ul class='subNav02'>
+                <li><a href='/news2011/asp/list.asp?code=0200'>ÀÌ ºÐ·ùÀÇ ¼Óº¸</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0210'>ºÎµ¿»ê</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0220'>Áõ±Ç/±ÝÀ¶/º¸Çè</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0230'>¼îÇÎ/À¯Åë</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0240'>±â¾÷/Ã¢¾÷</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0250'>±¸ÀÎ±¸Á÷</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0260'>º¹±Ç</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0270'>ÇØ¾ç¼ö»ê</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0280'>ÀÚµ¿Â÷</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0281'>Ç×°ø</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0290'>Á¶¼¼</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0231'>Åë»ó/¹«¿ª</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0291'>Á¤Ã¥</a></li>
+                <!--<li><a href='/news2011/asp/list.asp?code=0291'>Àü½Ã/ÄÁº¥¼Ç</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0292'>°ü±¤</a></li>-->
+              </ul>
+
+              <ul class='subNav02'>
+                <li><a href='/news2011/asp/list.asp?code=0300'>ÀÌ ºÐ·ùÀÇ ¼Óº¸</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0310'>»ç°Ç»ç°í</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0320'>±³À°</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0330'>º¸°Ç/º¹Áö</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0340'>È¯°æ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0350'>±³Åë</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0360'>³¯¾¾</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0370'>¹ýÁ¶</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0380'>³ëµ¿</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0390'>ÇàÁ¤</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0321'>¹Ìµð¾î</a></li>
+              </ul> 
+
+              <ul class='subNav02'>
+                <li><a href='/news2011/asp/list.asp?code=0400'>ÀÌ ºÐ·ùÀÇ ¼Óº¸</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0410'>¹Ì±¹</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0420'>ÀÏº»</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0430'>Áß±¹</a></li>
+                <!--<li><a href='/news2011/asp/list.asp?code=0440'>ÇØ¿ÜÅäÇÈ</a></li>-->
+                <li><a href='/news2011/asp/list.asp?code=0450'>Áßµ¿</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0460'>À¯·´</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0499'>±âÅ¸</a></li>
+              </ul> 
+
+              <ul class='subNav02'>
+                <li><a href='/news2011/asp/list.asp?code=0500'>ÀÌ ºÐ·ùÀÇ ¼Óº¸</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0510'>¹Ì¼ú</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0520'>Ã¥/¹®ÇÐ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0530'>À½¾Ç/À½¹Ý/°ø¿¬</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0540'>¿¬¿¹</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0550'>¿µÈ­/¹æ¼Û</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0560'>¹®È­Àç</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0570'>Á¾±³</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0580'>¹ÙµÏ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0590'>Àü½Ã</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1900'>¸¸È­</a></li>
+              </ul>
+
+              <ul class='subNav02'>
+                <li><a href='/news2011/asp/list.asp?code=0700'>ÀÌ ºÐ·ùÀÇ ¼Óº¸</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0710'>°Ç°­Á¤º¸</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0720'>¿©¼º»ýÈ°</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0730'>½ºÅ¸ÀÏ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0740'>Æ®·»µå</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0750'>°ÔÀÓ</a></li>      
+                <li><a href='/news2011/asp/list.asp?code=0760'>¸ÀÁý</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0770'>·¹Àú¿©Çà</a></li>
+              </ul> 
+
+              <ul class='subNav02'>
+                <li><a href='/news2011/asp/list.asp?code=0800'>ÀÌ ºÐ·ùÀÇ ¼Óº¸</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0820'>È¯°æ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0830'>°úÇÐ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=0840'>IT</a></li>
+              </ul> 
+
+              <ul class='subNav02'>
+                <li><a href='/news2011/asp/list.asp?code=2200'>ÀüÃ¼±â»ç</a></li>
+                <li><a href='/news2011/asp/list.asp?code=2210'>ºÎ»ê</a></li>
+                <li><a href='/news2011/asp/list.asp?code=222'>°æ³²</a></li>
+                <li><a href='/news2011/asp/list.asp?code=2230'>´ë±¸°æºÏ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=2240'>ºñ¿µ³²±Ç</a></li>
+                <li><a href='/bbs/board_list_2.asp?board_no=23'>»êÇàÈÄ±â</a></li>
+                <li><a href='/bbs/board_list_2.asp?board_no=26'>»êÇà»çÁø</a></li>
+                <li><a href='/bbs/board_list_2.asp?board_no=25'>»êÇà¾È³»</a></li>
+                <li><a href='/bbs/board_list_2.asp?board_no=27'>ÀÚÀ¯°Ô½ÃÆÇ</a></li>
+              </ul>     
+
+              <ul class='subNav02'>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0229'>°­µ¿Áø Ä®·³</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021041'>ÀÌÁöÈÆ Ä®·³</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021044'>±èÁ¤Çö Ä®·³</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021045'>°­¸í°ü Ä®·³</a></li>
+              </ul> 
+
+              <ul class='subNav02 '>
+                <li><a href='/news2011/asp/list.asp?code=1700'>ÀÌ ºÐ·ùÀÇ ¼Óº¸</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1710'>»ç¼³</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1720'>Ä®·³</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1730'>½Ã·Ð</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1740'>µµÃ»µµ¼³</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1750'>µ¥½ºÅ©½Ã°¢</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1760'>±âÀÚ¼öÃ¸</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1770'>µ¶ÀÚÄ®·³</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1780'>Á¦¾ð</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1790'>±â°í</a></li>
+              </ul>
+
+              <ul class='subNav02'>
+                <li><a href='/news2011/asp/list.asp?code=0850'>ÀüÃ¼º¸±â</a></li>
+                <li><a href='/bbs/item_list_2.asp?board_no=ITEM'>ÁÖÁ¦Åä·Ð¹æ</a></li>
+                <li><a href='/bbs/board_list_2.asp?board_no=28'>ÀÚÀ¯°Ô½ÃÆÇ</a></li>
+                <li><a href='/bbs/board_list_2.asp?board_no=30'>°øÁö»çÇ×</a></li>
+                <li><a href='/bbs/board_list_2.asp?board_no=31'>È°µ¿ÇöÈ²</a></li>
+              </ul>   
+
+              <ul class='subNav02'>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0229'>¼¼»óÀÐ±â</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0230'>°¨¼ºÅÍÄ¡</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0219'>¾ÆÄ§½£±æ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0220'>°úÇÐ¿¡¼¼ÀÌ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0231'>½ºÆ÷Ã÷¿¡¼¼ÀÌ</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0228'>ÀÎ¹®ÇÐÄ®·³</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0221'>CEOÄ®·³</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1790'>±â°í</a></li>
+                <li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0232'>¸ÞµðÄ®·³</a></li>
+
+								<li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0235'>»ýÈ°°ú ¹ý·ü</a></li>
+								<li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0233'>Ã»³âÀÇ ¼Ò¸®</a></li>
+								<li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=0234'>ÇØ¾ç¼ö»êÄ®·³</a></li>
+								<li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021055'>ÀÌÀºÈ­ÀÇ ¹Ì¼ú¿©Çà</a></li>
+								<li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021057'>È²Á¤¼öÀÇ ±×¸²»êÃ¥</a></li>
+								<li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021056'>ÃÖÅÂÈ£ÀÇ ¿ÍÀÎ ÇÑ ÀÜ</a></li>
+								<li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021053'>±èÁöÀ±ÀÇ ¿ì¸®À½¾Ç ÀÌ¾ß±â</a></li>
+								<li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021058'>Á¶¿µ¼®ÀÇ À½¾ÇÀÌ¾ß±â</a></li>
+								<li><a href='/news2011/asp/list.asp?code=1720&amp;clss_cd=021054'>¹Ú»óÇöÀÇ ³¢´Ï</a></li>
+              </ul> 
+
+              <div class="tab listnews_tab ">
+                <a href="/news2011/asp/list.asp?code=1720&amp;clss_cd=021037"><button class="tablinks">´º½º¿Í ÇöÀå</button></a>
+                <a href="/news2011/asp/list.asp?code=1720&amp;clss_cd=021001"><button class="tablinks">±âÀÚ¼öÃ¸</button></a>
+              </div>
+
+              <div class="tab listnews_tab ">
+                <a href="/news2011/asp/list.asp?code=1720&amp;clss_cd=0227"><button class="tablinks">¿ÈºÎÁî¸ÇÄ®·³</button></a>
+                <a href="/news2011/asp/list.asp?code=1770"><button class="tablinks">µ¶ÀÚ±ÇÀÍÀ§¿øÈ¸</button></a>
+              </div>
+
+</div></div>
+
+
+</div>
+</div>
+<!--menu_nav-->
+
+
+
+</div>
+<!--header-->
+
+
+
+<div id="wrap"> <!-- wrapper s--> 
+
+
+<!--<style>
+#e64bnr p{width:120px;height:130px;overflow:hidden;overflow:hidden;margin-bottom:5px}
+</style>-->
+<div class="flow_wrap2">
+
+
+
+<div id="flow_banner_left" style="position:absolute;width:160px;left:-170px; top:10px;text-align:right;">
+
+<a href="http://www.busanmedi.com" target="_blank"><img src="/design/busanmedi.jpg" width="160px" height="120px" style="padding:10px 0" alt="ºÎ»ê¸ÞµðÅ¬·´"></a>
+
+
+</div>
+
+
+<div id="flow_banner_right" style="position:absolute;left:1120px; top:10px;">
+
+<!--<p style="margin-bottom:5px">
+
+</p>-->
+
+</div>
+
+</div>
+  <div id="Contents">  <!-- Contents s-->
+	<!---------------->
+	<!-- topArea s-->
+	<!---------------->
+	<div id="topArea">  <!-- topArea s-->
+		<!---------------->
+
+		<!-- leftArea s-->
+		<div class="leftArea">  <!-- leftArea s-->
+
+			<div id="news_topArea"> <!-- news_topArea s -->
+				<div class="news_title">
+<h1>ºÎ»ê ÈÖ¹ßÀ¯ °ª §¤´ç 1400¿ø´ë¡¦8ÁÖÂ° ¿À¸§¼¼</h1>
+</div>
+<div class="news_reporterDate left">
+	<ul>
+		<li class="f_news_kookje">±¹Á¦½Å¹®</li>
+		<li class="f_news_repoter" id="reporter_"> <a href='/kookje/admin/gija_info.asp?gijaid=serenom'>ÀÌ¼®ÁÖ ±âÀÚ</a> serenom@kookje.co.kr</li>
+		<li><span class="f_news_date">&nbsp;|&nbsp; ÀÔ·Â : 2021-01-10 21:45:09</span></li>
+<li class="f_news_myeon">&nbsp;|&nbsp; º»Áö 13¸é</li>
+	</ul>
+</div>
+
+				<div class="news_snsPrint">
+					<ul class="news_print right">
+						<li>±ÛÀÚ Å©±â&nbsp;</li><li class="news_font"><img src="/kookje/images/btn_news_fontL.gif" border="0" alt="±Û¾¾ Å©°Ô" class="fzoom" id="switcher-large"></li>
+						<li class="news_font"><img src="/kookje/images/btn_news_fontS.gif" border="0" alt="±Û¾¾ ÀÛ°Ô" class="fzoom" id="switcher-small"></li>
+					</ul>
+				</div>
+			</div><!-- news_topArea e -->
+
+			
+			<!--
+			<div id="submenu_title">
+				<div class="submenu_title_top"><span class="left">°æÁ¦</span><span class="submenu_depth right">´º½º &gt; <strong>°æÁ¦</strong></span></div>
+				<div class="submenu_title_bottom"></div>
+			</div>-->
+			
+
+			<div id="submenu_blank">  <!-- submenu_blank s-->
+			</div> <!-- submenu_blank e -->
+
+			
+				<div id="news_textArea">
+
+		
+		<div class="news_share">
+        <ul class="news_share_sns">
+						<li><a href="javascript:sendFaceBook('ºÎ»ê ÈÖ¹ßÀ¯ °ª §¤´ç 1400¿ø´ë¡¦8ÁÖÂ° ¿À¸§¼¼','http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.33013002560');" class="share_fb">ÆäÀÌ½ººÏ °øÀ¯</a></li>
+						<li><a href="javascript:sendTwitter('ºÎ»ê ÈÖ¹ßÀ¯ °ª §¤´ç 1400¿ø´ë¡¦8ÁÖÂ° ¿À¸§¼¼','http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.33013002560');" class="share_tw">Æ®À§ÅÍ °øÀ¯</a></li>
+            <li><a href="javascript:sendKakaoStory()" class="share_kas">Ä«Ä«¿À½ºÅä¸® °øÀ¯</a></li>
+            <li><a href="javascript:sendNaver()" class="share_naver">³×ÀÌ¹ö °øÀ¯</a></li>
+						<li><a href="javascript:SendPrint('20210111.33013002560','0200');" class="share_print">ÀÎ¼â</a></li>
+						<li><a href="javascript:copy_trackback('http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&key=20210111.33013002560');" class="share_url">±â»ç ÁÖ¼Ò º¹»ç</a><input type="hidden" id="url_copy" value="http://www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.33013002560"><!-- ±â»çÁÖ¼Òº¹»ç¿ë ÁÖ¼Ò --></li>
+						<li><a href="javascript:newsScrap();" class="share_clip">½ºÅ©·¦</a></li>						
+        </ul>
+    </div>
+
+				<div class="news_article">
+				ºÎ»êÁö¿ª ÈÖ¹ßÀ¯ °¡°ÝÀÌ 10°³¿ù¿© ¸¸¿¡ §¤´ç 1400¿ø´ë·Î ¿Ã¶ó¼¹´Ù.<br><br><table border="0" cellpadding="0" cellspacing="0" width="100" align="right" class="tright"><tbody><tr><td width="15">&nbsp;&nbsp;&nbsp;</td><td align="right"><a href="javascript:win_YK('/news2011/asp/photo_view.asp?img_fn=20210111.33013002560i1.jpg')"><img id="newsimg" border="0" alt="" src="http://db.kookje.co.kr/news2000/photo/2021/0111/20210111.33013002560i1.jpg"></a></td></tr><tr><td colspan="2" height="3"></td></tr></tbody></table>10ÀÏ ÇÑ±¹¼®À¯°ø»çÀÇ À¯°¡Á¤º¸ ¼­ºñ½º ¡®¿ÀÇÇ³Ý¡¯¿¡ µû¸£¸é ÀÌ´Þ Ã¹Â° ÁÖ(4~7ÀÏ) ºÎ»ê ÁÖÀ¯¼Ò¿¡¼­ ÆÇ¸ÅµÈ º¸Åë ÈÖ¹ßÀ¯ Æò±Õ °¡°ÝÀº ÀüÁÖ(1397.08¿ø)º¸´Ù 17.08¿ø ¿À¸¥ 1414.16¿ø(ÀÌÇÏ §¤´ç)À» ±â·ÏÇß´Ù. Áö³­ÇØ 11¿ù ¼ÂÂ° ÁÖ ÀÌÈÄ 8ÁÖ ¿¬¼Ó ¿À¸§¼¼(ÀüÁÖ ´ëºñ)´Ù. Æ¯È÷ Áö³­ÇØ 3¿ù ³ÝÂ° ÁÖ(1403.45¿ø) ÀÌÈÄ Ã³À½À¸·Î 1400¿ø´ë¸¦ ±â·ÏÇß´Ù. ÀÌ´Þ Ã¹Â° ÁÖ Àü±¹ ÁÖÀ¯¼Ò¿¡¼­ ÆÇ¸ÅµÈ ÈÖ¹ßÀ¯ Æò±Õ °¡°Ýµµ ÀüÁÖº¸´Ù 16.69¿ø ¿À¸¥ 1430.14¿øÀ¸·Î Áý°èµÆ´Ù.<br><br>ºÎ»ê ÁÖÀ¯¼ÒÀÇ °æÀ¯ Æò±Õ °¡°Ýµµ ±ÞµîÇß´Ù. Áö³­´Þ ´Ù¼¸Â° ÁÖ 1194.93¿ø¿¡¼­ ÀÌ´Þ Ã¹Â° ÁÖ 1211.87¿øÀ¸·Î ÀÏÁÖÀÏ µ¿¾È 16.94¿ø ¿Ã¶ú´Ù. ÁÖ°£ ±âÁØ ºÎ»êÀÇ °æÀ¯ °¡°ÝÀÌ 1200¿øÀ» ³Ñ¾î¼± °Íµµ Áö³­ÇØ 3¿ù ³ÝÂ° ÁÖ(1210.58¿ø) ÀÌÈÄ ¾à 10°³¿ù ¸¸ÀÌ´Ù.<br><br>±¹Á¦À¯°¡ ±Þµî¼¼°¡ ºÎ»êÀ» ºñ·ÔÇÑ ±¹³» ±â¸§°ªÀ» ²ø¾î¿Ã·È´Ù. ÇÑ±¹À¸·Î ¼öÀÔµÇ´Â ¿øÀ¯ÀÇ ±âÁØÀÌ µÇ´Â µÎ¹ÙÀÌÀ¯ °¡°ÝÀº ÀÌ´Þ Ã¹Â° ÁÖ ¹è·²´ç 52.8´Þ·¯·Î ÀüÁÖº¸´Ù 1.7´Þ·¯ ¿Ã¶ú´Ù. <br><br> ÀÌ¼®ÁÖ ±âÀÚ serenom@kookje.co.kr
+				</div>
+				<div class="pdt20">¨Ï±¹Á¦½Å¹®(www.kookje.co.kr), ¹«´Ü ÀüÀç ¹× Àç¹èÆ÷ ±ÝÁö</div>
+				<div class="pdt20">¢º<a href="https://www.facebook.com/Busannews/" target="_blank">[±¹Á¦½Å¹® ÆäÀÌ½ººÏ]</a> <a href="https://www.instagram.com/daily_kookje/" target="_blank">[±¹Á¦½Å¹® ÀÎ½ºÅ¸±×·¥]</a></div>
+
+				<div class="pdt20"><a href="/contents/" target="_blank"><img src="/kookje/images/contents/what.jpg" alt="±¹Á¦½Å¹® ´º½º·¹ÅÍ"></a></div>
+
+				<div id="news_relGisa"> <!-- news_relGisa s -->
+	<div class="news_relGisa_title">
+		<p class="relGisa_title left f_news_relGisa_title">
+			°ü·Ã<span class="fOrange">±â»ç</span>
+		</p>
+		<ul class="relGisa_title2 left">
+			<li class="f_news_relGisa_titleR"><a href="/news2011/asp/list.asp?kwd=%B1%E2%B8%A7%B0%AA" class="f_news_relGisa_titleR">±â¸§°ª</a></li>
+		</ul>
+	</div>
+	<div class="news_relGisa_link">
+		<ul>
+			<li class="icon_relgisalist1 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20201214.22012004139" class="f_news_relGisa_link">ºÎ»ê ±â¸§°ª §¤´ç 1330¿ø¡¦ÀüÁÖºñ 17¿ø ±Þµî</a></li>
+			<li class="icon_relgisalist1 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0900&amp;key=20190507.22001002403" class="f_news_relGisa_link">±â¸§°ª ¿À¸£±â Àü³¯ ÁÖÀ¯¼Ò Ç³°æ</a></li>
+			<li class="icon_relgisalist1 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20190402.22015000275" class="f_news_relGisa_link">ÈÖ¹ßÀ¯¡¤°æÀ¯ °¡°ÝÂ÷ ºÒ°ú 7%¡¦10³â³» ÃÖ¼ÒÄ¡</a></li>
+			<li class="icon_relgisalist1 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20190128.22014011069" class="f_news_relGisa_link">À¯·ù¼¼ ÀÎÇÏ ¾à¹ß ¶³¾îÁ³³ª¡¦ÈÖ¹ßÀµ°ª 12ÁÖ ¸¸¿¡ ¹Ýµî¼¼</a></li>
+			<li class="icon_relgisalist1 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0900&amp;key=20181217.22012006975" class="f_news_relGisa_link">ÈÖ¹ßÀ¯ 1200¿ø´ë ÁÖÀ¯¼Ò µîÀå</a></li>
+			<li class="icon_relgisalist1 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20181112.22011004683" class="f_news_relGisa_link">À¯·ù¼¼ ³»¸®´Ï¡¦ÈÖ¹ßÀµ°ª 18ÁÖ ¸¸¿¡ ²ª¿´´Ù</a></li>
+			<li class="icon_relgisalist1 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20181029.22012012375" class="f_news_relGisa_link">ºÎ»ê ÈÖ¹ßÀ¯ °¡°Ý 1674¿ø¡¦17ÁÖÂ° ¿À¸§¼¼</a></li>
+			<li class="icon_relgisalist1 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20181022.22013009172" class="f_news_relGisa_link">ºÎ»ê ÈÖ¹ßÀ¯ °¡°Ý ¸®ÅÍ´ç 1670¿ø µ¹ÆÄ</a></li>
+			<li class="icon_relgisalist1 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20180917.22013006625" class="f_news_relGisa_link">ºÎ»ê ¿¬Á¦ ÈÖ¹ßÀ¯ °¡°Ý Àü±¹¼­ °¡Àå Àú·Å</a></li>
+			<li class="icon_relgisalist1 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20180827.22014011983" class="f_news_relGisa_link">ºÎ»ê ÈÖ¹ßÀ¯ °¡°Ý 4ÁÖ ¿¬¼Ó ¿Ã ÃÖ°íÄ¡</a></li>
+		</ul>
+	</div>
+</div><!-- news_relGisa e -->
+
+
+			<div class="pdt20"><a href="http://newsstand.naver.com/?pcode=332" target="_blank"><img src="/kookje/images/contents/nsnbb2.jpg" alt="±¹Á¦½Å¹® ³×ÀÌ¹ö ´º½º½ºÅÄµå ±¸µ¶ÇÏ±â"></a></div>
+			<div class="blank_20"></div>
+
+				</div>
+
+			
+
+			
+			<!--Æ÷Åä ½½¶óÀÌµå-->
+
+
+			<!--Æ÷Åä ½½¶óÀÌµå-->
+			<!--
+			<div id="photo_slide" class="mgt30">
+					<h3 class="tit"><a href="/news2011/asp/photo.asp">Æ÷Åä ½½¶óÀÌµå</a></h3>
+						<ul class="ps_lst">
+						
+						</ul>	
+			</div>
+			-->
+
+			<div><!--pnut s-->
+
+			<iframe frameborder="0" width="780px" height="210px" src="/service/side/pnut_box.htm" scrolling="no"></iframe>
+
+			</div><!--pnut e-->
+
+			 <!-- news_photoArea s -->
+			 <div id="news_photoArea">
+<div id='Set01'>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.33008002570"><img src="http://db.kookje.co.kr/news2000/photo/2021/0111/S20210111.33008002570i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.33008002570" class="f_main_photonews">Àº¹ÐÈ÷ ´Ù°¡¿Í ¡°¾ÏÈ£ ´ë¼¼¿ä¡±¡¦À¯Èï¾÷¼Ò º¯Á¾ ½É¾ß¿µ¾÷</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210111.22012002498"><img src="http://db.kookje.co.kr/news2000/photo/2021/0111/S20210111.22012002498i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210111.22012002498" class="f_main_photonews">Æ®·³ÇÁ ÅºÇÙ¾È ÀÌ¸£¸é 11ÀÏ »óÁ¤¡¦Â÷±â ÀçµµÀü ºÀ¼â¼³</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210111.22012002488"><img src="http://db.kookje.co.kr/news2000/photo/2021/0111/S20210111.22012002488i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210111.22012002488" class="f_main_photonews">62¸í Å¾½ÂÇÑ ÀÎµµ³×½Ã¾Æ ¿©°´±â Ãß¶ô¡¦¡°ÇØ»ó¼­ ½ÅÃ¼ ÀÏºÎ ¹ß°ß¡±</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210111.22017001973"><img src="http://db.kookje.co.kr/news2000/photo/2021/0111/S20210111.22017001973i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210111.22017001973" class="f_main_photonews">¿ä¿ä·Î ÇÑ±¹ ÁÖ¸§Àâ´ø ´Ù¼¸ ¼Ò³âµé¡¦30´ë µÈ Áö±Ý, ²Þ°ú Çö½Ç »çÀÌ ¹æÈ²</a></dd>
+	</dl>
+</div>
+<div id='Set02'>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210111.22020002274"><img src="http://db.kookje.co.kr/news2000/photo/2021/0111/S20210111.22020002274i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210111.22020002274" class="f_main_photonews">¹¹ º¼±î¡¦¿À´ÃÀÇ TV- 2021³â 1¿ù 11ÀÏ</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210108.33001002067"><img src="http://db.kookje.co.kr/news2000/photo/2021/0108/S20210108.33001002067i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210108.33001002067" class="f_main_photonews">´ë¼±ºÒº¹ ½ÃÀ§´ë¿¡ Áþ¹âÈù ¹Ì±¹ ¹ÎÁÖÁÖÀÇ</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0900&amp;key=20210108.33013002044"><img src="http://db.kookje.co.kr/news2000/photo/2021/0108/S20210108.33013002044i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0900&amp;key=20210108.33013002044" class="f_main_photonews">ºñÆ®ÄÚÀÎ ±¹³» °Å·¡ Ã¹ 4000¸¸ ¿ø µ¹ÆÄ</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210108.22010002012"><img src="http://db.kookje.co.kr/news2000/photo/2021/0108/S20210108.22010002012i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210108.22010002012" class="f_main_photonews">°Å¼¼Áö´Â Æ®·³ÇÁ ÅºÇÙ·Ð¡¦°øÈ­´ç¡¤³»°¢µµ µîµ¹·È´Ù</a></dd>
+	</dl>
+</div>
+<div id='Set03'>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210108.22010001784"><img src="http://db.kookje.co.kr/news2000/photo/2021/0108/S20210108.22010001784i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210108.22010001784" class="f_main_photonews">¹ÙÀÌµç ¡°Àü·Ê ¾ø´Â ¹ýÄ¡¿¡ ´ëÇÑ °ø°Ý¡±</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210108.22018001999"><img src="http://db.kookje.co.kr/news2000/photo/2021/0108/S20210108.22018001999i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210108.22018001999" class="f_main_photonews">¡°±×·± ÅõÀÚ ÇÏÁö¸¶½Ã¶ó¡± °í¼öµéÀÇ ½ÇÀüºñ¹ý °ø°³</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210107.22015001552"><img src="http://db.kookje.co.kr/news2000/photo/2021/0107/S20210107.22015001552i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210107.22015001552" class="f_main_photonews">¡®±â·ÏÁ¦Á¶±â¡¯ ¼ÕÈï¹Î À¯·´¹«´ë 150È£ °ñ ½ú´Ù</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=1600&amp;key=20210107.22014001513"><img src="http://db.kookje.co.kr/news2000/photo/2021/0107/S20210107.22014001513i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=1600&amp;key=20210107.22014001513" class="f_main_photonews">ÇÑ ÀÛÇ° ±Ø°ú ±Ø µÎ ¿¬±â¡¦¡°±Ô¸®·Î µ¹¾Æ¿À±â Èûµé¾úÁÒ¡±</a></dd>
+	</dl>
+</div>
+<div id='Set04'>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=1600&amp;key=20210107.22014001512"><img src="http://db.kookje.co.kr/news2000/photo/2021/0107/S20210107.22014001512i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=1600&amp;key=20210107.22014001512" class="f_main_photonews">À±½Ä´ç ¾÷Á¾ º¯°æ, ¡®À±½ºÅ×ÀÌ¡¯ ¿À¼¼¿ä</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210106.22017001160"><img src="http://db.kookje.co.kr/news2000/photo/2021/0106/S20210106.22017001160i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210106.22017001160" class="f_main_photonews"> ¡®½ºÀ§Æ®È¨¡¯ÀÇ ÀÌÀÀº¹ °¨µ¶</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210106.22016001124"><img src="http://db.kookje.co.kr/news2000/photo/2021/0106/S20210106.22016001124i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210106.22016001124" class="f_main_photonews">¡®À¥Å÷ µå¶ó¸¶¡¯ÀÇ ¼º°øºñ°á¡¦°ËÁõµÈ ÄÜÅÙÃ÷¿Í ¹«ÇÑ Ã¢ÀÇ·Â</a></dd>
+	</dl>
+	<dl class="left">
+		<dt><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210105.22016000732"><img src="http://db.kookje.co.kr/news2000/photo/2021/0105/S20210105.22016000732i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+		<dd><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210105.22016000732" class="f_main_photonews">¿¾ ¸íÀÛ ±×½ÃÀý °¨µ¿ ±×´ë·Î¡¦¡®¿À·¡µÈ ±ØÀå¡¯À¸·Î Ãß¾ï¿©Çà</a></dd>
+	</dl>
+</div>
+</div>
+<script type="text/javascript">
+<!--
+var s_now = new Date() ; 
+var s_num = (s_now.getSeconds() % 4)+1;
+eval("document.getElementById('Set0'+s_num).style.display='block'");
+//-->
+</script>
+
+
+			<!-- news_photoArea e -->
+
+			<div id="news_relGisa2"> <!-- news_relGisa2 s -->
+			<ul class="left news_list">
+<li class="ellipsis"><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.33002002575" class="f_news_relGisa2_list">¡á 1900¸í ´ë¸é¿¹¹è¿¡µµ ±âÃÊ´ÜÃ¼ ¼Õ ³õ°í ÀÖ¾ú´Ù</a></li>
+<li class="ellipsis"><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.33008002568" class="f_news_relGisa2_list">¡á ºÎ»ê´ë µî·Ï±Ý µ¿°á ¿òÁ÷ÀÓ¿¡¡¦ÃÑÇÐ, ½ÉÀÇ Âü¿© º¸ÀÌÄà</a></li>
+<li class="ellipsis"><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22009002564" class="f_news_relGisa2_list">¡á ¡°Á¶µÎ¼ø¿¡ º¹Áö±Þ¿© ¿Ö ÁÖ³Ä¡± Ã»¿Í´ë Ã»¿ø µîÀå</a></li>
+<li class="ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.33013002562" class="f_news_relGisa2_list">¡á ºÎ»êÀºÇà¡¤±âº¸ ¿ÃÇØµµ ±ÝÀ¶Áö¿ø ÆÈ °È¾î</a></li>
+<li class="ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.22004002527" class="f_news_relGisa2_list">¡á 3Â÷ Àç³­Áö¿ø±Ý Áö±Þ ½ÃÀÛ¡¦12ÀÏ±îÁø 2ºÎÁ¦ ½ÅÃ» ¹Þ¾Æ</a></li>
+<li class="ellipsis"><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22010002505" class="f_news_relGisa2_list">¡á ±èÇØ½Ã, °æ³² À¯ÀÏ ¡®¹ýÁ¤ ¹®È­µµ½Ã¡¯·Î ÁöÁ¤</a></li>
+<li class="ellipsis"><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210111.22012002496" class="f_news_relGisa2_list">¡á WSJ ¡°ÇÑ±¹°è ¿¬¹æ°Ë»çÀå »çÀÓÀº Æ®·³ÇÁ Áø³ë ¶§¹®¡±</a></li>
+<li class="ellipsis"><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210111.22012002494" class="f_news_relGisa2_list">¡á Æ®À§ÅÍ ¡®Æ®À­ ´ëÅë·É¡¯ ¿µ±¸ Ãß¹æ¡¦Ãø±Ùµé ¡°¾ð·ÐÀÇ ÀÚÀ¯ ¹¬»ì¡± Æ®À­</a></li>
+<li class="ellipsis"><a href="/news2011/asp/newsbody.asp?code=0400&amp;key=20210111.22012002485" class="f_news_relGisa2_list">¡á Ã¼°¨ ÃÖÀú ±â¿Â ¿µÇÏ43¡É¡¦Áß±¹ ÇÑÆÄ´Â ºÏ±Ø ÇØºù Å¿</a></li>
+</ul>
+
+
+				<p class="right" style="width:250px;height:250px;border:1px solid #ddd">
+				<script type="text/javascript">
+						google_ad_client = "ca-pub-5306000737854769";
+						google_ad_slot = "2839459725";
+						google_ad_width = 250;
+						google_ad_height = 250;
+				</script>
+				<!-- 250x250, ÀÛ¼ºµÊ 10. 2. 28 -->
+				<script type="text/javascript"
+				src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+				</script>
+				</p>
+			</div><!-- news_relGisa2 e -->
+
+			<div style="width:640px;margin:10px auto;"><div style="float:left;padding:0 15px 20px;"><script src="https://media.adpnut.com/cgi-bin/PelicanC.dll?impr?pageid=01m4&out=script"></script></div><div class="clear"><script src="https://media.adpnut.com/cgi-bin/PelicanC.dll?impr?pageid=01m5&out=script"></script></div></div>
+
+			<!-- ´ñ±ÛÀÌ ³ª¿Ã À§Ä¡ -->
+			<div id="livereContainer">
+<!--¶óÀÌºê¸® ÇÁ¸®¹Ì¾ö ¼³Ä¡ÄÚµå s-->
+<div id="lv-container" data-id="kookje" data-uid="NTUxLzEzNjY1LzYxNA==">
+<script type="text/javascript">
+window.livereOptions ={
+refer: 'www.kookje.co.kr/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.33013002560'
+};
+(function(d,s) {
+	var j,e=d.getElementsByTagName(s)[0];
+	if (typeof LivereTower === 'function') {return;}
+	j=d.createElement(s);
+	j.src='https://cdn-city.livere.com/js/embed.dist.js'; 
+	j.async=true;
+	e.parentNode.insertBefore(j,e);
+})(document,'script');
+</script>
+<noscript>¶óÀÌºê¸® ´ñ±Û ÀÛ¼ºÀ» À§ÇØ JavaScript¸¦ È°¼ºÈ­ÇØÁÖ¼¼¿ä</noscript>
+</div>
+<!--¶óÀÌºê¸® ÇÁ¸®¹Ì¾ö ¼³Ä¡ ÄÚµå e-->
+			</div>
+
+			<div style="clear:both;margin:0 30px;">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-5306000737854769"
+     data-ad-slot="6061095961"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div><!--¾Öµå¼¾½º ÄÜÅÙÃ÷-->
+
+
+			<div class="blank_20"><!-- ¿©¹é --></div>
+		</div> <!-- leftArea e -->
+		<!---------------->
+		<!---------------->
+		<div class="rightArea">  <!-- rightArea s-->
+        
+			 <!--include right_sub START -->
+
+	<div class="pdt20"><a href="/contents/" target="_blank"><img src="/design/bn_what300.jpg" alt="¹¹¶ó³ë ´º½º"></a></div>
+
+
+<div class="right_margin_div mgt20">
+
+	<div><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- ´º½º º»¹® ¿ìÃø »ó´Ü -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-5306000737854769"
+     data-ad-slot="9849052183"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>		
+	
+</div>
+
+
+<!--include hotissue_main-->
+<div id="todayIssue" class="mgt20">  
+    <p><span class="f_todayissue_title1">¿À´Ã</span><span class="f_todayissue_title2">ÀÌ½´</span></p>
+<ul>
+	<li><a href="/news2011/asp/list.asp?kwd=ÄÚ·Î³ª19" class="f_todayissueB">ÄÚ·Î³ª19</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=º¸±È¼±°Å" class="f_todayissueB">º¸±È¼±°Å</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=Æ®·³ÇÁ ½Ã´ë" class="f_todayissue">Æ®·³ÇÁ ½Ã´ë</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=±â¸§°ª" class="f_todayissue">±â¸§°ª</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=±ä±ÞÀç³­Áö¿ø±Ý" class="f_todayissue">±ä±ÞÀç³­Áö¿ø±Ý</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=ºí·ÏÃ¼ÀÎ" class="f_todayissue">ºí·ÏÃ¼ÀÎ</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=¾çµµ¼¼" class="f_todayissue">¾çµµ¼¼</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=À§¾ÈºÎ" class="f_todayissue">À§¾ÈºÎ</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=ÄÚ½º´Ú" class="f_todayissue">ÄÚ½º´Ú</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=2021 ´ëÇÐÀÔ½Ã" class="f_todayissue">2021 ´ëÇÐÀÔ½Ã</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=ÀÚÄ¡°æÂûÁ¦" class="f_todayissue">ÀÚÄ¡°æÂûÁ¦</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=Àç°ÇÃà" class="f_todayissue">Àç°ÇÃà</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=Á¶·ùÀÎÇÃ·ç¿£ÀÚ" class="f_todayissue">Á¶·ùÀÎÇÃ·ç¿£ÀÚ</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=Áß´ëÀçÇØ¹ý" class="f_todayissue">Áß´ëÀçÇØ¹ý</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=ÇÑ±¹ÀÚ»ê°ü¸®°ø»ç" class="f_todayissue">ÇÑ±¹ÀÚ»ê°ü¸®°ø»ç</a></li>
+	<li><a href="/news2011/asp/list.asp?kwd=ÇÑÆÄ" class="f_todayissue">ÇÑÆÄ</a></li>
+</ul>
+
+
+</div>
+
+
+
+<iframe src="/news2011/sephtml/main_mediclub1.htm" width="300px" height="167px" frameborder="0" scrolling="no" class="mgt20"></iframe>
+
+
+<!--
+<div class="mgt20">
+
+</div>
+-->
+
+
+<!--include hitlistNews-->
+<script type="text/javascript">
+function tabHit(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+<div class="mgt20" style="display:inline-block;"><h3 class="tit" style="font-family:dotun,'malgun gothic'"> &nbsp;¸¹ÀÌ º» ´º½º<span class="right pdt10"><a href="/news2011/asp/rss.asp?vHeadTitle=RSS"><img src="/kookje/images/rss_go.gif" border="0" alt="RSS"></a></span></h3>
+<div class="tab hitnews_tab">
+  <button class="tablinks active" onclick="tabHit(event, 'hitlist1')">Á¾ÇÕ</button>
+  <button class="tablinks" onclick="tabHit(event, 'hitlist2')">Á¤Ä¡</button>
+  <button class="tablinks" onclick="tabHit(event, 'hitlist3')">°æÁ¦</button>
+  <button class="tablinks" onclick="tabHit(event, 'hitlist4')">»çÈ¸</button>
+  <button class="tablinks" onclick="tabHit(event, 'hitlist5')">½ºÆ÷Ã÷</button>
+</div>
+<div id="hit_news">
+<ol id="hitlist1" class="tabcontent" style="display:block;">
+<li><span class="num">1</span><a href="/news2011/asp/newsbody.asp?code=0500&amp;key=20210111.22017001973" ><span class="ncon ellipsis2">¿ä¿ä·Î ÇÑ±¹ ÁÖ¸§Àâ´ø ´Ù¼¸ ¼Ò³âµé¡¦30´ë µÈ Áö±Ý, ²Þ°ú Çö½Ç »çÀÌ ¹æÈ²</span></a></li>
+<li><span class="num">2</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.22014002492" ><span class="ncon ellipsis2">ºí·ÏÃ¼ÀÎÆ¯±¸ Ãß°¡»ç¾÷, ÁÖ°ü»ç »çÁ¤À¸·Î ÃßÁø ºÒÅõ¸í</span></a></li>
+<li><span class="num">3</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210111.22005002539" ><span class="ncon ellipsis2">±¹¹ÎÀÇÈû Çö¿ª °æ¼± Áß¸³ ³õ°í ³í¶õ °ÝÈ­</span></a></li>
+<li><span class="num">4</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210111.22005002544" ><span class="ncon ellipsis2">¾ß´ç ´õ Ä¡¿­ÇØÁø 3À§ ÀïÅ»Àü¡¦ÀÌ¾ðÁÖ ¿©¼º °¡Á¡ ¹ÚÇüÁØ À§Çù</span></a></li>
+<li><span class="num">5</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210111.22005002546" ><span class="ncon ellipsis2">º¯¼º¿Ï ÃÖ´ë 20% ½ÅÀÎ °¡Á¡¡¦¿©´ç ±è¿µÃá µ¶ÁÖ ±ý º¯¼ö µÉ±î</span></a></li>
+<li><span class="num">6</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.22004002527" ><span class="ncon ellipsis2">3Â÷ Àç³­Áö¿ø±Ý Áö±Þ ½ÃÀÛ¡¦12ÀÏ±îÁø 2ºÎÁ¦ ½ÅÃ» ¹Þ¾Æ</span></a></li>
+<li><span class="num">7</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210111.22004002532" ><span class="ncon ellipsis2">¡°À§¾ÈºÎ¿¡ ¹è»ó¡± ÇÑ±¹ ÆÇ°á¿¡¡¦ÀÏº» Á¤ºÎ, ±¹Á¦»ç¹ýÀçÆÇ¼Ò Á¦¼Ò °ËÅä</span></a></li>
+<li><span class="num">8</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210111.22004002536" ><span class="ncon ellipsis2">ÅëÇÕ¡¤³²ºÏ°ü°è ¸Þ½ÃÁö ³ª¿Ã±î¡¦¹® ´ëÅë·É 11ÀÏ ½Å³â»ç¿¡ ÃË°¢</span></a></li>
+<li><span class="num">9</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22004002542" ><span class="ncon ellipsis2">ºÎ»êÀÚÄ¡°æÂû 5¿ù Ãâ¹ü¡¦ÀÚ°æÀ§¿øÀå ÀÎ»ç´Â Â÷±â ½ÃÀå ¸ò</span></a></li>
+<li><span class="num">10</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22016002486" ><span class="ncon ellipsis2">¡°ÁÖ¹Î Àû±Ø ÇùÁ¶ ´ö µµ·Î °³¼³ ¼º»ç µî ¸¶À» ¹ßÀü¿¡ º¸¶÷¡±</span></a></li>
+
+
+</ol>
+<ol id="hitlist2" class="tabcontent">
+<li><span class="num">1</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210111.22004002532" ><span class="ncon ellipsis2">¡°À§¾ÈºÎ¿¡ ¹è»ó¡± ÇÑ±¹ ÆÇ°á¿¡¡¦ÀÏº» Á¤ºÎ, ±¹Á¦»ç¹ýÀçÆÇ¼Ò Á¦¼Ò °ËÅä</span></a></li>
+<li><span class="num">2</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210111.22005002546" ><span class="ncon ellipsis2">º¯¼º¿Ï ÃÖ´ë 20% ½ÅÀÎ °¡Á¡¡¦¿©´ç ±è¿µÃá µ¶ÁÖ ±ý º¯¼ö µÉ±î</span></a></li>
+<li><span class="num">3</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210111.22005002544" ><span class="ncon ellipsis2">¾ß´ç ´õ Ä¡¿­ÇØÁø 3À§ ÀïÅ»Àü¡¦ÀÌ¾ðÁÖ ¿©¼º °¡Á¡ ¹ÚÇüÁØ À§Çù</span></a></li>
+<li><span class="num">4</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210111.22005002539" ><span class="ncon ellipsis2">±¹¹ÎÀÇÈû Çö¿ª °æ¼± Áß¸³ ³õ°í ³í¶õ °ÝÈ­</span></a></li>
+<li><span class="num">5</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210111.22005002535" ><span class="ncon ellipsis2">±¹¹ÎÀÇÈû ½ÅÀÎ 4¸í, º»°æ¼±Çà Æ¼ÄÏ È®º¸ ¼À¹ý ºÐÁÖ</span></a></li>
+<li><span class="num">6</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210111.22004002536" ><span class="ncon ellipsis2">ÅëÇÕ¡¤³²ºÏ°ü°è ¸Þ½ÃÁö ³ª¿Ã±î¡¦¹® ´ëÅë·É 11ÀÏ ½Å³â»ç¿¡ ÃË°¢</span></a></li>
+<li><span class="num">7</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210109.99099002200" ><span class="ncon ellipsis2">¹é·Éµµ ½ÇÁ¾ ÇØ±º °£ºÎ, ÀÎ±Ù ÇØ»ó¼­ ¼ûÁøÃ¤ ¹ß°ß</span></a></li>
+<li><span class="num">8</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210109.99099002208" ><span class="ncon ellipsis2">ÝÁ ÇÙÀá¼öÇÔ °³¹ß °ø½ÄÈ­...º¸¼ö¾ß´ç &quot;´ëºÏÁ¤Ã¥ ¿ÏÀüÇÑ ½ÇÆÐ&quot;</span></a></li>
+<li><span class="num">9</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210109.99099002194" ><span class="ncon ellipsis2">±èÁ¤Àº ¡°Ú¸, °­´ë°­¡¤¼±´ë¼±¡¦Ñõ, ÇÕÀÇ ÀÌÇàÇÏ´Â ¸¸Å­ »ó´ë¡±</span></a></li>
+<li><span class="num">10</span><a href="/news2011/asp/newsbody.asp?code=0100&amp;key=20210109.99099002201" ><span class="ncon ellipsis2">Á¤ÃÑ¸® ¡°3Â÷À¯Çà ±äÀå ´ÊÃâ ¼ö ¾ø´Ù¡±¡¦¿­¹æ¼¾ÅÍ ¹æ¹®ÀÚ °Ë»ç ´çºÎ</span></a></li>
+
+
+</ol>
+<ol id="hitlist3" class="tabcontent">
+<li><span class="num">1</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.22014002491" ><span class="ncon ellipsis2">Ä·ÄÚ, ±¹À¯Áö 650ÇÊÁö À§ ºóÁý¡¤Æó°Ç¹° Á¤ºñ</span></a></li>
+<li><span class="num">2</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.22014002493" ><span class="ncon ellipsis2">¾îÂ÷ÇÇ ÁýÄÛ¡¦ÆÐµùº¸´Ù Àß ³ª°¡´Â ½Ç³»º¹</span></a></li>
+<li><span class="num">3</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.22014002495" ><span class="ncon ellipsis2">¡®Àç°ÇÃà ´ë¾î¡¯ ¿ìµ¿1 »ïÈ£°¡µç ¼öÁÖÀü ºÒ²É°æÀï</span></a></li>
+<li><span class="num">4</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.22004002527" ><span class="ncon ellipsis2">3Â÷ Àç³­Áö¿ø±Ý Áö±Þ ½ÃÀÛ¡¦12ÀÏ±îÁø 2ºÎÁ¦ ½ÅÃ» ¹Þ¾Æ</span></a></li>
+<li><span class="num">5</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.22014002492" ><span class="ncon ellipsis2">ºí·ÏÃ¼ÀÎÆ¯±¸ Ãß°¡»ç¾÷, ÁÖ°ü»ç »çÁ¤À¸·Î ÃßÁø ºÒÅõ¸í</span></a></li>
+<li><span class="num">6</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210108.33013002050" ><span class="ncon ellipsis2">ºÎ»ê½ÅÇ×¿¡ ¡®½º¸¶Æ® °øµ¿¹°·ù¼¾ÅÍ¡¯ Á¶¼º</span></a></li>
+<li><span class="num">7</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210108.33013002051" ><span class="ncon ellipsis2">ºÎ»ê °ÔÀÓ¾÷Ã¼µé  ¡°e½ºÆ÷Ã÷ ºñÁî´Ï½º¿¡ º° µµ¿ò ¾ÈµÅ¡±</span></a></li>
+<li><span class="num">8</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210108.33013002052" ><span class="ncon ellipsis2">ºÎ»ê¾ÆÆÄÆ®°ª »õÇØ Ã¹ÁÖµµ ¿À¸§¼¼ Áö¼Ó</span></a></li>
+<li><span class="num">9</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210108.33013002053" ><span class="ncon ellipsis2">¸£³ë»ï¼ºÂ÷ ÀÓ¿ø 40% °¨Ãà¡¦Çã¸®¶ì ´õ Á¹¶ó¸Ç´Ù</span></a></li>
+<li><span class="num">10</span><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210108.33001002073" ><span class="ncon ellipsis2">Ä£È¯°æ ¹æÆÄÁ¦ °ø¹ý °³¹ß¡¦¾ÈÀü¡¤°æÁ¦¼º ´Ù Àâ´Ù</span></a></li>
+
+
+</ol>
+<ol id="hitlist4" class="tabcontent">
+<li><span class="num">1</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22016002487" ><span class="ncon ellipsis2">'¸íÇ°¸¶À»' Çõ½ÅÀ» Ã£¾Æ¼­ <25> ¾ç»ê ¹°±ÝÀ¾ ¼­ºÎ¸¶À»</span></a></li>
+<li><span class="num">2</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22016002486" ><span class="ncon ellipsis2">¡°ÁÖ¹Î Àû±Ø ÇùÁ¶ ´ö µµ·Î °³¼³ ¼º»ç µî ¸¶À» ¹ßÀü¿¡ º¸¶÷¡±</span></a></li>
+<li><span class="num">3</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22006002173" ><span class="ncon ellipsis2">Ã»³â°ú¡¦³ª´©´Ù <2> ÀÌÀç¼º ¾Ë·ÎÀÌ½Ã¿À ±âÁöÀå</span></a></li>
+<li><span class="num">4</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22010002506" ><span class="ncon ellipsis2">°ÅÁ¦ µé¾î¼³ ÇÑ¡¤¾Æ¼¼¾È ±¹°¡Á¤¿ø, 10°³±¹ ¹®È­¡¤¿ª»ç ÁÖÁ¦·Î ²Ù¹Î´Ù</span></a></li>
+<li><span class="num">5</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22010002505" ><span class="ncon ellipsis2">±èÇØ½Ã, °æ³² À¯ÀÏ ¡®¹ýÁ¤ ¹®È­µµ½Ã¡¯·Î ÁöÁ¤</span></a></li>
+<li><span class="num">6</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22004002542" ><span class="ncon ellipsis2">ºÎ»êÀÚÄ¡°æÂû 5¿ù Ãâ¹ü¡¦ÀÚ°æÀ§¿øÀå ÀÎ»ç´Â Â÷±â ½ÃÀå ¸ò</span></a></li>
+<li><span class="num">7</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22009002524" ><span class="ncon ellipsis2">¿À´ÃÀÇ ³¯¾¾- 2021³â 1¿ù 11ÀÏ</span></a></li>
+<li><span class="num">8</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22006002503" ><span class="ncon ellipsis2">¡°´Ù¾çÇÑ °æÇè ½×ÀÌ¸é »õ·Î¿î ±âÈ¸ ºÒ·¯¿Í¡¦±×°ÍÀÌ µµÀüÀÇ ÀÌÀ¯¡±</span></a></li>
+<li><span class="num">9</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22010002509" ><span class="ncon ellipsis2">Åëµµ»ç, ¾ç»ê½Ã¹Î ÀÔÀå·á ÀçÀ¯·áÈ­ ÃßÁø ³í¶õ</span></a></li>
+<li><span class="num">10</span><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20210111.22010002504" ><span class="ncon ellipsis2">ÁøÁÖ½Ã¿¡ ±â°ü °æ°í¡¦µ¿Çà °ø¹«¿øÀº Â¡°è</span></a></li>
+
+
+</ol>
+<ol id="hitlist5" class="tabcontent">
+<li><span class="num">1</span><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210111.22019002540" ><span class="ncon ellipsis2">ºÎ»ê½Ã¼³°ø´Ü 7¿¬½Â¡¦1À§ ÁúÁÖ</span></a></li>
+<li><span class="num">2</span><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210111.22019002530" ><span class="ncon ellipsis2">ºÎ»ê½Ã°ñÇÁÇùÈ¸ ½ÅÀÓÈ¸Àå, ÃÖ±¤½Ä ¿ìÁø»ó¿î ´ëÇ¥ ´ç¼±</span></a></li>
+<li><span class="num">3</span><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210111.22019002537" ><span class="ncon ellipsis2">NC °£ÆÇÅ¸ÀÚ ³ª¼º¹ü, MLB ÁøÃâ ¹«»ê</span></a></li>
+<li><span class="num">4</span><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210111.22019002543" ><span class="ncon ellipsis2">Àß ÅÍÁö´ø ºÎ»ê kt È¨¼­ 2¿¬ÆÐ¡¦4¶ó¿îµå Ã¹ ½Â ¹Ì·ï</span></a></li>
+<li><span class="num">5</span><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210111.22019002528" ><span class="ncon ellipsis2">±ÇÇõ¿î ¾ÆÀÌ¿¡½ºµ¿¼­ È¸Àå, ³ó±¸ÇùÈ¸Àå ¼±°Å ´Üµ¶ Ãâ¸¶</span></a></li>
+<li><span class="num">6</span><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210111.22019002534" ><span class="ncon ellipsis2">¾ÆÀÌÆÄÅ© °ñÅ°ÆÛ º¸°­¡¦¾ÈÁØ¼ö¡¤ÁøÇÊ¸³ ¿µÀÔ</span></a></li>
+<li><span class="num">7</span><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210108.22019002014" ><span class="ncon ellipsis2">¾ÆÀÌÆÄÅ©, °­¿µ¿õ¡¤¾îÁ¤¿ø¡¤ÃµÁöÇö ¿µÀÔ</span></a></li>
+<li><span class="num">8</span><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210108.22019002031" ><span class="ncon ellipsis2">±èÇÏ¼º¡¤±è±¤Çö ÄÚ¸®¾È ÅõÅ¸´ë°á ¿¹°í</span></a></li>
+<li><span class="num">9</span><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210108.22019002035" ><span class="ncon ellipsis2">ºÎ»ê kt ÇãÈÆ 3R MVP¡¦¿Ã½ºÅ¸ 1À§ ÀÌ¾î °ã°æ»ç</span></a></li>
+<li><span class="num">10</span><a href="/news2011/asp/newsbody.asp?code=0600&amp;key=20210108.22019002036" ><span class="ncon ellipsis2">°ÅÀÎÀÇ ¹Ì·¡ ¼Õ¡¤Áø¡¤¿±(¼Õ¼ººó¡¤±èÁø¿í¡¤³ª½Â¿±), ¿Ã ½ÃÁð ÀÏ³½´Ù</span></a></li>
+
+
+</ol>
+</div>
+</div>
+
+<!--<div class="mgt20 pdl5"><a href="https://svc.wooribank.com/svc/Dream?withyou=SFSBK0002" target="_blank" title="»õÃ¢" rel="nofollow"><img src="/design/bn_woori_sub.jpg" alt="¿ì¸®ÀºÇà" /></a></div>-->
+
+
+<!--board-->
+
+<div class="k_bbc mgt30">
+<h3 class="tit">µ¶ÀÚÂü¿© °Ô½ÃÆÇ</h3>
+
+<ul>
+
+<li><a href="/bbs/board_list_2.asp?board_no=1"><strong style="color:#000000;">µ¶ÀÚÅõ°í</strong></a>&nbsp; | &nbsp;<a href="/bbs/board_list_2.asp?board_no=2"><strong style="color:#000000;">±â»çÁ¦º¸</strong></a></li>
+
+<li><a href="/news2011/asp/list.asp?code=2120" class="f_people_link">ÀÎ»ç</a> | <a href="/news2011/asp/list.asp?code=2130" class="f_people_link">¸ðÀÓ</a> | <a href="/news2011/asp/list.asp?code=2140" class="f_people_link">°³¾÷</a> | <a href="/news2011/asp/list.asp?code=2150" class="f_people_link">°áÈ¥</a> | <a href="/news2011/asp/list.asp?code=2160" class="f_people_link">Ãâ»ê</a> | <a href="/news2011/asp/list.asp?code=2170" class="f_people_link">µ¿Á¤</a> | <a href="/news2011/asp/list.asp?code=2180" class="f_people_link">ºÎ°í</a></li>
+
+<li><a href="/bbs/board_list_2.asp?board_no=25">»êÇà¾È³»</a>&nbsp; | &nbsp;<a href="/bbs/board_list_2.asp?board_no=23">»êÇàÈÄ±â</a>&nbsp; | &nbsp;<a href="/bbs/board_list_2.asp?board_no=26">»êÇà»çÁø</a></li>
+
+<li><a href="/bbs/leisure_list_2.asp?code=2200"><strong style="color:#72b834;">µî»ê</strong>°¡ÀÌµå</a>&nbsp; | &nbsp;<a href="/bbs/leisure_list_2.asp?code=2300"><strong style="color:#33afe2;">³¬½Ã</strong>°¡ÀÌµå</a></li>
+
+</ul>
+</div>
+
+
+<div class="mgt30"><!--ad pnut s-->
+<iframe src="/service/side/pnut_right.htm" width="300px" height="250px" frameborder="0" scrolling="no"></iframe>
+</div>
+
+
+               
+<!--include r_kwdlist_code_00-->
+
+
+
+<!--include r_kwdlist_code_00_1-->
+<div class=sub_issue>				<!-- right_kwdgisa -->
+                <div id="sub_issue"><!-- sub_issue s -->
+				<p class="kwd_title"><a href="/news2011/asp/list.asp?kwd=ºÎ»ê ºÎµ¿»ê ÇöÈ²" class="f_sub_issue2"><span class="f_red">[ÇÖÀÌ½´]</span> ºÎ»ê ºÎµ¿»ê ÇöÈ²</a></p>
+				<p class="photo_view">
+					<a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210110.99099002245"><img src="/news2011/screennews/318_20210111_20210110.99099002245i1.jpg" border="0" alt="Àç°ÇÃàº¸´Ù ¸®¸ðµ¨¸µ¡¦LG¸ÞÆ®·Î½ÃÆ¼¡¤½Å½Ã°¡Áö º»°ÝÈ­" ></a>
+				</p>
+				<ul>
+					<li class="icon_gisalist3 ellipsis fBold"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210110.99099002245" class="f_sub_rightGisa">Àç°ÇÃàº¸´Ù ¸®¸ðµ¨¸µ¡¦LG¸ÞÆ®·Î½ÃÆ¼¡¤½Å½Ã°¡Áö º»°ÝÈ­</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210111.22014002495" class="f_sub_rightGisa">¡®Àç°ÇÃà ´ë¾î¡¯ ¿ìµ¿1 »ïÈ£°¡µç ¼öÁÖÀü ºÒ²É°æÀï</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210108.33013002052" class="f_sub_rightGisa">ºÎ»ê¾ÆÆÄÆ®°ª »õÇØ Ã¹ÁÖµµ ¿À¸§¼¼ Áö¼Ó</a></li>
+					<li class="icon_gisalist3 ellipsis" style="margin-bottom:10px;"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210105.22012000775" class="f_sub_rightGisa">¿¬ÃÊºÎÅÍ ºÎ»êÁö¿ª Á¤ºñ»ç¾÷ ¼Ó¼Ó ±âÁö°³</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210104.22013000397" class="f_sub_rightGisa">ºÎ»ê ¿ÃÇØ 2¸¸5817¼¼´ë ºÐ¾ç¡¦¿¡ÄÚµ¨Å¸ 6868°¡±¸ ¡®º¿¹°¡¯</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210101.22018010697" class="f_sub_rightGisa">ºÎ»ê Áý°ª ´õ ¿Ã¶ú´Ù¡¦±ÔÁ¦ ÇÇÇÑ ±âÀå ¡®¾¦¡¯</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20201231.22009010304" class="f_sub_rightGisa">ºÎ»ê °¡Àå ºñ½Ñ ¿ÀÇÇ½ºÅÚÀº ÇØ¿î´ë ¡®·°Å° °ñµç½ºÀ§Æ®¡¯</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20201228.22012008576" class="f_sub_rightGisa">¡®ºÐ¾ç°¡ 50¾ï¡¯ ¿¤½ÃÆ¼ »ó°¡ ÃÖ°í°æÀï·ü 15´ë 1</a></li>
+				</ul>
+                </div>
+				<!-- //right_kwdgisa -->
+
+</div><div class=sub_issue>				<!-- right_kwdgisa -->
+                <div id="sub_issue"><!-- sub_issue s -->
+				<p class="kwd_title"><a href="/news2011/asp/list.asp?kwd=µ¿ºÎ»ê °ü±¤´ÜÁö" class="f_sub_issue2"><span class="f_red">[ÇÖÀÌ½´]</span> µ¿ºÎ»ê °ü±¤´ÜÁö</a></p>
+				<p class="photo_view">
+					<a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20200907.22004001766"><img src="/news2011/screennews/337_20201127_20200907.22004001766i1.jpg" border="0" alt="KÆË °ø¿¬¡¤Àü½Ã¡¤EDM(ÀÏ·ºÆ®·Î´Ð ´í½º ¹ÂÁ÷) ÆÄÆ¼ ¾î¿ì·¯Áø ¡®¿À½Ã¸®¾Æ ÇÖÇÃ¡¯ °³¹ß" ></a>
+				</p>
+				<ul>
+					<li class="icon_gisalist3 ellipsis fBold"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20200907.22004001766" class="f_sub_rightGisa">KÆË °ø¿¬¡¤Àü½Ã¡¤EDM(ÀÏ·ºÆ®·Î´Ð ´í½º ¹ÂÁ÷) ÆÄÆ¼ ¾î¿ì·¯Áø ¡®¿À½Ã¸®¾Æ ÇÖÇÃ¡¯ °³¹ß</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20201127.22008009272" class="f_sub_rightGisa">¿À½Ã¸®¾Æ ¹®È­¿¹¼úÅ¸¿î ÅäÁö¼ÒÀ¯±Ç ÀÌÀü</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20201015.22011003641" class="f_sub_rightGisa">±âÀå ¿À½Ã¸®¾Æ ¾ÆÄí¾Æ¿ùµå ¡°¿¬³» Âø°ø ¸ñÇ¥¡±</a></li>
+					<li class="icon_gisalist3 ellipsis" style="margin-bottom:10px;"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20200716.22008005330" class="f_sub_rightGisa">¿À½Ã¸®¾Æ ÈÞ¾ç¸®Á¶Æ®»ç¾÷ º»°ÝÈ­¡¦ÀÎ¼ö »ç¾÷ÀÚ ÁöºÐº¯°æ ½ÂÀÎ ¿äÃ»</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20200630.99099010989" class="f_sub_rightGisa">ºÎ»ê ¿À½Ã¸®¾Æ °ü±¤´ÜÁö ÅõÀÚÀ¯Ä¡ ¿Ï·á ¡®ÁÖ¿ä½Ã¼³ º¸´Ï¡¯</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20200624.22004008513" class="f_sub_rightGisa">¿À½Ã¸®¾Æ 3Á¶ ´ë »ç¾÷ ±âÁö°³¡¦ºÎ»ê °Ç¼³°æ±â ¼ûÅë Æ·¿ì³ª</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20200217.22011005724" class="f_sub_rightGisa">²¿¸®¹® ´ë±âÂ÷·®¡¤ÀÎÆÄ µÚ¾ûÄÑ °÷°÷ È¥Àâ</a></li>
+					<li class="icon_gisalist3 ellipsis"><a href="/news2011/asp/newsbody.asp?code=0900&amp;key=20200214.33001005018" class="f_sub_rightGisa">ÀÌÄÉ¾Æ µ¿ºÎ»êÁ¡ °³Àå Ã¹³¯ºÎÅÍ ºÏ»õÅë</a></li>
+				</ul>
+                </div>
+				<!-- //right_kwdgisa -->
+
+</div>
+
+<!--include r_clsslist_code_special-->
+
+
+<div id="sub_specialGisa" class="mgt20">
+<script type="text/javascript"> 
+<!--
+    function sel_change() {
+        location.href="/news2011/asp/list.asp?code=0200&clss_cd=" + document.getElementById('sel_specialSeries').value;
+    }
+//-->
+</script>
+<dl class="left">
+	<dd class="ellipsis2"><a href="/news2011/asp/list.asp?code=0200&clss_cd=122103    " class="f_main_photonews"><b>ÁÖ¸ñ ÀÌ ±â¾÷ÀÇ ±â'¾÷'</b></a></dd>
+	<dt><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210108.22012002000"><img src="http://db.kookje.co.kr/news2000/photo/2021/0108/20210108.22012002000i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+	<dd class="ellipsis2"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210108.22012002000" class="f_main_photonews"> ¢ßÀ¯ÁÖ- µ¶º¸Àû ±â¼ú·Â</a></dd>
+</dl>
+<div class="sub_specialGisa_blank"><!-- ¿©¹é --></div>
+<dl class="left">
+	<dd class="ellipsis2"><a href="/news2011/asp/list.asp?code=0200&clss_cd=122102    " class="f_main_photonews"><b>Áö¿ªÁß½É½Ã´ë ºÎ¿ï°æ ±â¾÷À» ÀÀ¿øÇÏ´Ù!</b></a></dd>
+	<dt><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210106.22014001118"><img src="http://db.kookje.co.kr/news2000/photo/2021/0106/20210106.22014001118i1.jpg" border="0" alt="" class="photo_view"></a></dt>
+	<dd class="ellipsis2"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210106.22014001118" class="f_main_photonews"> »ç¶÷Àº ¼­¿ï·Î?</a></dd>
+</dl>
+<select id="sel_specialSeries" name="sel_specialSeries" class="sel_specialSeries" onchange="javascript:sel_change()">
+	<option value="">±âÈ¹½Ã¸®Áî </option>
+	<option value="122001">2020¡¦O2O·Î µû¶æÇÏ°Ô</option>
+	<option value="122004">±ÝÀ¶Áß½ÉÁö ºÎ»êÀÇ ±âÈ¸¿Í µµÀü</option>
+	<option value="122007">³«µ¿°­ È¾´Ü ´ë¶õ</option>
+	<option value="122101">³»°íÀå ºñÁî´Ï½º</option>
+	<option value="122002">´Ù½Ã ¶Ù´Â ºÎ»ê ½Å¹ß»ê¾÷</option>
+	<option value="122005">µû¶æÇÑ 020 ½ÃÁð2</option>
+	<option value="122006">ºÎ»ê ¿ì¼ö »çÈ¸Àû°æÁ¦±â¾÷</option>
+	<option value="122103">ÁÖ¸ñ ÀÌ ±â¾÷ÀÇ ±â'¾÷'</option>
+	<option value="122102">Áö¿ªÁß½É½Ã´ë ºÎ¿ï°æ ±â¾÷À» ÀÀ¿øÇÏ´Ù!</option>
+	<option value="122003">Èû³»¶ó ºÎ¿ï°æ ¼Ò¡¤ºÎ¡¤Àå</option>
+</select>
+
+
+</div>
+
+        
+
+<!--include r_clsslist_code-->
+<div id="sub_rightGisa">
+	<dl>
+		<dt><a href="/news2011/asp/list.asp?code=0200&clss_cd=020297">°æÁ¦ Æ÷Ä¿½º <u>[ÀüÃ¼º¸±â]</u></a></dt>
+		<dd class="ellipsis icon_gisalist4"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20201231.22009010137" class="f_sub_rightGisa">  °ÑÀ¸·Î¸¸ ±ÕÇü¹ßÀü ³»¼¼¿î Á¤ºÎÀÇ ¡®¼öµµ±Ç Á¤ºñ°èÈ¹¡¯</a><dd>
+		<dd class="ellipsis icon_gisalist4"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20201228.22012008828" class="f_sub_rightGisa">  ÇÕÀÇ ºÒ¹ß¶© °æ¼±¡¦¡®±î´Ù·Î¿î Ãß´ë¾È¡¯¿¡ ¼±¶æ ¸ø ³ª¼­</a><dd>
+	</dl>
+	<dl>
+		<dt><a href="/news2011/asp/list.asp?code=0200&clss_cd=020296">ºê¸®ÇÎ <u>[ÀüÃ¼º¸±â]</u></a></dt>
+		<dd class="ellipsis icon_gisalist4"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210101.22018010355" class="f_sub_rightGisa">  BNK ¿ÃÇØµµ ÀÌÃ¼¼ö¼ö·á ¸éÁ¦</a><dd>
+		<dd class="ellipsis icon_gisalist4"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210101.22018010639" class="f_sub_rightGisa">  Ã»³â°ÅÁÖÁö 27¸¸3000Ã¤ °ø±Þ</a><dd>
+	</dl>
+	<dl>
+		<dt><a href="/news2011/asp/list.asp?code=0200&clss_cd=020286">Áõ½Ã ·¹ÀÌ´õ <u>[ÀüÃ¼º¸±â]</u></a></dt>
+		<dd class="ellipsis icon_gisalist4"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20201013.22012002774" class="f_sub_rightGisa">  ¶ß°Å¿î °ø¸ðÁÖ¡¦°³¹Ì´Â ¡®°ø¸ðÁÖ ÆÝµå¡¯¿¡ ´« µ¹·Á¶ó</a><dd>
+	</dl>
+	<dl>
+		<dt><a href="/news2011/asp/list.asp?code=0200&clss_cd=020295">ÇöÀå¸£Æ÷ <u>[ÀüÃ¼º¸±â]</u></a></dt>
+		<dd class="ellipsis icon_gisalist4"><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20201222.22002007062" class="f_sub_rightGisa">  °ËÃ¼ Ã¤Ãë 5ºÐÀÌ¸é ³¡¡¦¹«Áõ»ó µÎ·Á¿î 2030 °Ë»çÀÚ ¹ß±æ</a><dd>
+		<dd class="ellipsis icon_gisalist4"><a href="/news2011/asp/newsbody.asp?code=0300&amp;key=20200810.22003002729" class="f_sub_rightGisa">  ÇÇ¼­Áö ´ë¸ñµµ ¾µ¾î°£ Æø¿ì¡¦»óÀÎµé ¡°¿ÃÇØ Àå»ç ¹°°Ç³Ê °¬´Ù¡±</a><dd>
+	</dl>
+	<dl>
+		<dt><a href="/news2011/asp/list.asp?code=0200&clss_cd=020211">±ÝÀ¶¡¤Áõ½Ã µ¿Çâ <u>[ÀüÃ¼º¸±â]</u></a></dt>
+		<dd class="ellipsis icon_gisalist4"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20201030.22012008532" class="f_sub_rightGisa"> ±ÝÀ¶¡¤Áõ½Ã µ¿Çâ</a><dd>
+		<dd class="ellipsis icon_gisalist4"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20201029.22010008092" class="f_sub_rightGisa"> ±ÝÀ¶¡¤Áõ½Ã µ¿Çâ</a><dd>
+	</dl>
+	<dl>
+		<dt><a href="/news2011/asp/list.asp?code=0200&clss_cd=020290">ÁÖ°¡Áö¼ö- <u>[ÀüÃ¼º¸±â]</u></a></dt>
+		<dd class="ellipsis icon_gisalist4"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210108.22013002008" class="f_sub_rightGisa"> ÁÖ°¡Áö¼ö- 2021³â 1¿ù 7ÀÏ</a><dd>
+		<dd class="ellipsis icon_gisalist4"><a href="/news2011/asp/newsbody.asp?code=0200&amp;key=20210107.22008001530" class="f_sub_rightGisa"> ÁÖ°¡Áö¼ö- 2021³â 1¿ù 6ÀÏ</a><dd>
+	</dl>
+</div>
+
+
+
+<!--include ad-->           
+<div class="mgt20">
+
+<!--ad doublem s-->
+<div class="blank_10"></div>
+<script src="https://media.adpnut.com/cgi-bin/PelicanC.dll?impr?pageid=01m2&out=script"></script>
+<!--ad doublem e-->
+
+</div>
+
+<div class="k_bbc mgt20">
+<h3 class="tit">¾Ë¸³´Ï´Ù</h3>
+<ul>
+<li><a href="/news2011/asp/newsbody.asp?code=1800&amp;key=20210111.22001002508">¡¤ ÇÑ³·ÀÇ À¯U;ÄÜ¼­Æ® ÀÌÁ¨ ¼ö¿äÀÏ¿¡ ¸¸³ª¿ä</a></li>
+<li><a href="/news2011/asp/newsbody.asp?code=1800&amp;key=20210106.22002001090">¡¤ À¯Æ©ºê Á¤Ä¡ ÅäÅ©¼î ¡®µ¶ÇÑ Ã»¹®È¸¡¯</a></li>
+<li><a href="/news2011/asp/newsbody.asp?code=1800&amp;key=20210105.22002000756">¡¤ Á¦65È¸ ½Å¹®ÀÇ ³¯ Ç¥¾î °ø¸ðÇÕ´Ï´Ù</a></li>
+
+
+</ul>
+</div>
+
+<div class="right_margin_div mgt20">
+<!-- Skitter Styles -->
+<link href="/css/skitter.styles.min.css" type="text/css" media="all" rel="stylesheet" />
+<script type="text/javascript" language="javascript" src="/jquery/jquery.easing.1.3.js"></script>
+<script type="text/javascript" language="javascript" src="/jquery/jquery.skitter.min.js"></script>
+  
+<!-- Init Skitter -->
+<script type="text/javascript" language="javascript">
+$(document).ready(function(){
+	 $('.box_skitter_medium').css({width: 298, height: 150}).skitter({show_randomly: false, dots: true, interval: 4000, numbers_align: 'center', theme: 'default'});
+});
+</script>
+
+<div class="border_box">
+	<div class="box_skitter box_skitter_medium">
+		<ul>
+					<li><a href="/news2011/asp/list.asp?kwd=À¯ÄÜ¼­Æ®"><img src="/design/ucon2101.jpg?v=1" class="blind" alt="À¯ÄÜ¼­Æ®" /></a></li>
+<li><a href="http://academy.kookje.co.kr/" target="_blank"><img src="/design/bn_academy18th.jpg" class="blind" alt="18±â ±¹Á¦¾ÆÄ«µ¥¹Ì ¸ðÁý" /></a></li>
+
+
+		</ul>
+	</div>
+</div>
+</div>
+
+
+			<div id="main_site" class="mgt20 mgb20">
+			<dl>
+			
+
+<dd><a href="http://www.galmaetgil.org" target="_blank"><img src="/design/banner_greenwalking.jpg" alt="°È°í ½ÍÀº ºÎ»ê ±×¸°¿öÅ· È¨ÆäÀÌÁö"></a></dd>
+<dd><a href="http://www.kookje.co.kr/kookje/culture_kookje.asp" target="_blank"><img src="/design/banner_rent.jpg" alt="±¹Á¦½Å¹® ´ë°ü¾È³»"></a></dd>
+<dd><a href="http://www.storybusan.com" target="_blank"><img src="/design/banner_storybusan.jpg" alt="½ºÅä¸® ¹Ú½º"></a></dd>
+
+         
+			</dl>
+			</div>
+
+
+<!--include right_sub END-->
+
+		</div> <!-- rightArea e -->
+
+	</div> <!-- topArea e -->
+
+  </div> <!-- Contents e -->
+
+  </div><!--wrapper e-->
+
+<div id="footer">
+<div id="footer_inner">
+<dl>
+<dt>Á¦ÈÞ»ç</dt>
+<dd><a href="http://www.storybusan.com" target="_blank">ºÎ»ê½ºÅä¸®ÅÚ¸µÇùÀÇÈ¸</a></dd>
+<dd><a href="http://www.fobst.org/" target="_blank">ºÎ»ê°úÇÐ±â¼úÇùÀÇÈ¸</a></dd>
+<dd><a href="http://www.galmaetgil.org" target="_blank">°È°í½ÍÀººÎ»ê</a></dd>
+<dd><a href="http://www.cbs.co.kr/nocut/" target="_blank" rel="nofollow">³ëÄÆ´º½º</a></dd>
+<dt>Á¦ÈÞ¼­ºñ½º</dt>
+<dd><a href="http://kookje.incruit.com/" target="_blank" rel="nofollow">±¸ÀÎ±¸Á÷</a></dd>
+<dd><a href="http://kookje.ykbook.com/" target="_blank" rel="nofollow">µµ¼­</a></dd>
+<dd><a href="http://sol.r114.co.kr/scripts2/outsite/kookje/default.asp?only=138" target="_blank" rel="nofollow">ºÎµ¿»ê</a></dd>
+<dd><a href="/kookje/culture_kookje.asp" target="_self">±¹Á¦½Å¹®´ë°ü¾È³»</a></dd>
+</dl>
+
+<span class="flogo"><img src="/kookje/image_new/flogo.jpg" alt="±¹Á¦½Å¹®" /></span>
+
+<ul class="info">
+
+			<li><a href="/kookje/ceo_message.asp" target="_blank">È¸»ç¼Ò°³</a></li>
+			<li><a href="/kookje/cor_formation.asp" target="_blank">ÀüÈ­¾È³»</a></li>
+			<li><a href="/kookje/support/" target="_blank">±¤°í¾È³»</a></li>
+			<li><a href="/kookje/marketing_request.asp" target="_blank">±¸µ¶½ÅÃ»</a></li>
+			<li><a href="/bbs/board_list_2.asp?board_no=1">µ¶ÀÚÅõ°í</a></li>
+			<li><a href="/bbs/board_list_2.asp?board_no=2">±â»çÁ¦º¸</a></li>
+			<li><a href="/kookje/admin/kookje_guide.asp"><strong style="color:#CC0000">°³ÀÎÁ¤º¸Ãë±Þ¹æÄ§</strong></a></li>
+			<li><a href="/news2011/special_m/opinion/ethics.asp">¾ð·ÐÀ±¸®°­·É</a></li>
+			<li><a href="/news2011/special_m/opinion/opinion.asp">°íÃæÃ³¸®</a></li>
+			<li><a href="http://m.kookje.co.kr/" target="_blank">¸ð¹ÙÀÏ±¹Á¦½Å¹®</a></li>
+
+</ul>
+<ul class="addr"><li>ÁÖ¼Ò : ºÎ»ê±¤¿ª½Ã ¿¬Á¦±¸ Áß¾Ó´ë·Î 1217</li><li>´ëÇ¥ÀüÈ­ : 051-500-5114</li><li>¹ßÇàÀÎ¡¤ÀÎ¼âÀÎ¡¤ÆíÁýÀÎ : ÀÌÃ³¹®</li>
+<li>Copyright ¨Ï kookje.co.kr All rights reserved.</li>
+</ul>
+</div>
+</div>
+<!--footer-->
+
+
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$( "#go_mobile1" ).click(function() { //pc version
+		$.removeCookie('equipment', { path: '/' });
+		location.reload();
+	});
+	$( "#go_mobile2" ).click(function() { //pc version
+		$( "#go_mobile" ).hide();
+	});
+});
+</script><iframe id="frm_hitCount" name="frm_hitCount" frameborder="0" height="0" width="0" src="/news2011/asp/hit_cnt.asp?key=20210111.33013002560"></iframe>
+
+</div><!-- wrap e -->
+
+<iframe id="frm_dummy" name="frm_dummy" frameborder="0" height="0" width="0" src=""></iframe>
+
+
+</body>
+</html>
