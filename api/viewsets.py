@@ -9,6 +9,9 @@ class StockViewset(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         stock_data = request.data.get("data")
+        auth = request.META.get('HTTP_AUTHENTICATION')
+        if(auth!="ff35885ab6c63290ccdf60b80a9b37769e287ec5"):
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
         serializer = self.get_serializer(data=stock_data,many=True)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
