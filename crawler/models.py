@@ -16,7 +16,7 @@ class CrawlingKeyword(models.Model):
 #본문 내용
 class News(models.Model):
     objects = models.Manager()
-    url = models.URLField('url of news provider', max_length=1024, unique=True)
+    url = models.URLField('url of news provider', max_length=1024, primary_key=True)
     crawled_date = models.DateTimeField('crawled date')
     head_text = models.TextField('head text')
     body_text = models.TextField('body text of news')
