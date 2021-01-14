@@ -54,6 +54,10 @@ services:
       - cluster.name=astselastic
       - ES_JAVA_OPTS=-Xms512m -Xmx512m
       - discovery.type=single-node
+    command: >
+      /bin/sh -c "./bin/elasticsearch-plugin list | grep -q analysis-nori
+      || ./bin/elasticsearch-plugin install analysis-nori;
+      /usr/local/bin/docker-entrypoint.sh"
   logstash:
     image: docker.elastic.co/logstash/logstash:7.0.0
     volumes:
