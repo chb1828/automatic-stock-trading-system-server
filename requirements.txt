@@ -5,3 +5,4 @@ psycopg2==2.8.6
 maya
 requests
 django-rest-auth
+elasticsearch
