@@ -19,7 +19,7 @@ class StockViewset(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         headers = self.get_success_headers(serializer.data)
-        print(serializer.data)
+        print(serializer.data)  # result 값을 custom json 형식의 포맷으로 전송한다 .
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
