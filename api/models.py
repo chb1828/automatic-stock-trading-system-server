@@ -1,17 +1,14 @@
 from django.db import models
 
-from api.validate_token import validate_token
-
 
 class Stock(models.Model):
-    code = models.CharField(max_length=20)
-    name = models.CharField(max_length=30)
+    code = models.CharField(max_length=64, primary_key=True)
+    name = models.CharField(max_length=128)
     cnt = models.BigIntegerField()
-    construction = models.CharField(max_length=20)
+    construction = models.CharField(max_length=64)
     listedDate = models.DateTimeField()
-    lastPrice = models.CharField(max_length=10)
-    state = models.CharField(max_length=20)
-    token = models.CharField(max_length=50,validators=[validate_token])
+    lastPrice = models.CharField(max_length=64)
+    state = models.CharField(max_length=64)
 
     class Meta:
         db_table = 'stock'

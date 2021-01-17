@@ -9,6 +9,7 @@ class CrawlingKeyword(models.Model):
     objects = models.Manager()#dummy property that improves vs code intelligence
     keyword = models.CharField('keyword to search in naver news api', max_length=128, primary_key=True)
 
+
 #신문사 url(네이버가 아닌 뉴스사의 것을 그대로 가져온다)
 #마지막 확인 일자(크롤러가 접근한 일자를 나타내야 한다.)
 #제목, 아마도 사람에게는 제목을 보여주는 편이 나을 것이다.
@@ -19,3 +20,6 @@ class News(models.Model):
     crawled_date = models.DateTimeField('crawled date')
     head_text = models.TextField('head text')
     body_text = models.TextField('body text of news')
+
+    class Meta:
+        db_table = 'news'
