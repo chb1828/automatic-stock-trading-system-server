@@ -6,3 +6,4 @@ maya
 requests
 django-rest-auth
 elasticsearch
+django-bulk-update-or-create

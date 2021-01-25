@@ -124,7 +124,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False      # 날짜 경고 제거를 위한 False (untimeWarning: DateTimeField Stock.listedDate received a naive datetime (2020-10-28 00:00:00) while time zone support is active. warnings.warn("DateTimeField %s received a naive datetime (%s)")
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
