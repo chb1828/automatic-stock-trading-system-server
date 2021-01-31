@@ -7,3 +7,4 @@ requests
 BeautifulSoup4
 django-rest-auth
 elasticsearch
+selenium
