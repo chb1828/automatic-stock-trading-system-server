@@ -4,6 +4,8 @@ gunicorn==20.0.4
 psycopg2==2.8.6
 maya
 requests
+BeautifulSoup4
 django-rest-auth
 elasticsearch
 django-bulk-update-or-create
+selenium

@@ -20,6 +20,3 @@ class News(models.Model):
     crawled_date = models.DateTimeField('crawled date')
     head_text = models.TextField('head text')
     body_text = models.TextField('body text of news')
-
-    class Meta:
-        db_table = 'news'
