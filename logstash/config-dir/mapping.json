@@ -1,0 +1,33 @@
+{
+  "template": "news*",
+  "settings": {
+    "index.refresh_interval": "5s",
+    "analysis": {
+      "tokenizer": {
+        "nori_tokenizer": {
+          "type": "nori_tokenizer"
+        }
+      },
+      "analyzer": {
+        "nori_korean": {
+          "type": "custom",
+          "tokenizer": "nori_tokenizer"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "body_text": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 32766
+          }
+        }
+      }
+    }
+  }
+}
+

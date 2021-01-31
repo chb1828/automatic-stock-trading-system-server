@@ -7,4 +7,5 @@ requests
 BeautifulSoup4
 django-rest-auth
 elasticsearch
+django-bulk-update-or-create
 selenium
