@@ -63,7 +63,7 @@ def processInit(msgQueue):
             options.add_argument('headless')
             options.add_argument('window-size=1920x1080')
             options.add_argument("disable-gpu")
-            webDriver = webdriver.Chrome('C:/phantomjs-2.1.1-windows/chromedriver.exe', chrome_options=options)
+            webDriver = webdriver.Chrome('./webdriver/chromedriver.exe', chrome_options=options)
 
             from . import models
 
