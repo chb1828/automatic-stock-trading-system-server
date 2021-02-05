@@ -25,9 +25,7 @@ def processInit():
         }
 
         results = es_client.search(index='news', body=query_body)
-        #results = es_client.search(index="news", body={"query": {"match_all": {}}})       
-
-        print(results)
+        #results = es_client.search(index="news", body={"query": {"match_all": {}}})
 
         for result in results['hits']['hits']:
             print('score', result['_score'], 'source:', result['_source'])
