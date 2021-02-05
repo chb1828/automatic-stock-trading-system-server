@@ -15,7 +15,7 @@ class ApiConfig(AppConfig):
         if os.environ.get("RUN_MAIN") == "true" and os.environ.get("RUN_ANAL") != "true":
             from django import db
             db.connections.close_all()  # 이것은 리눅스 환경에서 기본값인 fork로 시작되는 프로세스들이 db 컨넥션 공유 에러를 피하도록 한다.
-            print('Crawler service app has been loaded. now starting crawler Process...')
+            print('Analysis service app has been loaded. now starting analysis Process...')
             global msgQueue
             global p
             p = Process(target=analysisProcess.processInit, args=(msgQueue,))
