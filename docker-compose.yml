@@ -17,6 +17,7 @@ services:
     environment:
       - TZ=Asia/Seoul
       - DB_HOST=db
+      - ELK_ADDR=http://elasticsearch:9200
     volumes:
     - .:/usr/src/app
     - ./static/rest_framework:/usr/src/app/static

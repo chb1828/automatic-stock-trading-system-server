@@ -7,6 +7,7 @@ import atexit
 msgQueue = Queue()
 p = None
 
+
 class ApiConfig(AppConfig):
     name = 'api'
     verbose_name = 'Analysis Service App for ASTS'
