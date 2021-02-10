@@ -10,7 +10,6 @@ import time
 
 @receiver(post_save, sender=News)
 def analysis(sender, **kwargs ):
-    time.sleep(5)       # postgresql 에서 elasticsearch로 들어가는 시간중 5초 정도의 시간이 필요
     print("analysis 실행")
     if os.environ.get("ELK_ADDR") is None:  # 도커로 실행 될때에는 url이 수정되어야 하기 때문에 변경
         elk_addr = "http://localhost:9200"
