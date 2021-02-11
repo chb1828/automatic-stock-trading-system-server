@@ -19,13 +19,7 @@
   "mappings": {
     "properties": {
       "body_text": {
-        "type": "text",
-        "fields": {
-          "keyword": {
-            "type": "keyword",
-            "ignore_above": 32766
-          }
-        }
+        "type": "text"
       }
     }
   }
