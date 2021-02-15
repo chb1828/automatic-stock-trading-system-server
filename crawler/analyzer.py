@@ -2,6 +2,8 @@ from elasticsearch import NotFoundError
 import os
 import elasticsearch
 
+from crawler import models
+
 
 def analysis():
     print("analysis 실행")
@@ -16,9 +18,15 @@ def analysis():
             "bool": {
                 "must": [
                     {
-                        "match": {
-                            "body_text": "원유"           # 여기에는 항상 존재하는 값만 찾아온다
-                        },
+                        "dis_max": {
+                            "queries": [
+                                {
+                                    "match": {
+                                        "body_text": "원유"  # 여기에는 항상 존재하는 값만 찾아온다
+                                    },
+                                }
+                            ]
+                        }
                     },
                     # {
                     #     "range": {
@@ -32,14 +40,8 @@ def analysis():
                 "should": [
                     {
                         "match": {
-                            "body_text": "기대감"        # 여기에는 값이 있으면 score 가 올라간다.
-                        },
-                        "match": {
-                            "body_text": "상승"
-                        },
-                        "match": {
-                            "body_text": "증가"
-                        },
+                            "body_text": "기대감 상승 증가",        # 여기에는 값이 있으면 score 가 올라간다. 띄어쓰기로 분별
+                        }
                     },
                     {
                         "match_phrase": {  # 단어가 아닌 문장 검색
