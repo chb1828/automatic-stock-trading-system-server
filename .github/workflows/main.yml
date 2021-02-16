@@ -47,8 +47,6 @@ jobs:
         env:
           TAG: latest
           IMAGE_NAME: asts
-          DOCKER_USER: sugarpowder
-          DOCKER_PASS: sugar1234
         run: |
           . venv/bin/activate
           docker build -t $IMAGE_NAME .
