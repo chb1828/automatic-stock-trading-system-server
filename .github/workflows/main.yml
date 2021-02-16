@@ -49,6 +49,8 @@ jobs:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
         run: |
+          echo $DOCKER_USER
+          echo $DOCKER_PASS
           . venv/bin/activate
           docker build -t $IMAGE_NAME .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
