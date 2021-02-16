@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     env:
-      DOCKER_USER: ${{ asts.DOCKER_USER }}
-      DOCKER_PASS: ${{ asts.DOCKER_PASS }}
+      DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
