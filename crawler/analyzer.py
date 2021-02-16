@@ -13,7 +13,7 @@ def analysis():
         elk_addr = os.environ.get("ELK_ADDR")
     es_client = elasticsearch.Elasticsearch(elk_addr)
     query_body = {  # 예제 쿼리, 나중에는 JSON 형태로 따로 파일을 만들어서 관리
-        "size": 5,
+        #"size": 5,
         "query": {
             "bool": {
                 "must": [
