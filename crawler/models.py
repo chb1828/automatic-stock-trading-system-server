@@ -20,3 +20,11 @@ class News(models.Model):
     crawled_date = models.DateTimeField('crawled date')
     head_text = models.TextField('head text')
     body_text = models.TextField('body text of news')
+
+
+class NewsKeyword(models.Model):
+    objects = models.Manager()
+    class Meta:
+        unique_together = (('url', 'keyword'))
+    url = models.URLField('url of news provider', max_length=1024)
+    keyword = models.CharField('keyword to search in naver news api', max_length=128)

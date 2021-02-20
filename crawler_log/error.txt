@@ -1,0 +1,24 @@
+https://www.econovill.com/news/articleView.html?idxno=520197
+#######################################
+Invalid field name(s) for model NewsKeyword: 'url'.
+#######################################
+http://www.amnews.co.kr/news/articleView.html?idxno=45293
+#######################################
+Invalid field name(s) for model NewsKeyword: 'url'.
+#######################################
+http://www.thebell.co.kr/front/free/contents/news/article_view.asp?key=202102181056352720101673
+#######################################
+Invalid field name(s) for model NewsKeyword: 'url'.
+#######################################
+https://news.joins.com/article/olink/23590266
+#######################################
+Invalid field name(s) for model NewsKeyword: 'url'.
+#######################################
+https://view.asiae.co.kr/article/2021021814253283119
+#######################################
+Invalid field name(s) for model NewsKeyword: 'url'.
+#######################################
+http://www.electimes.com/article.php?aid=1613625990212743025
+#######################################
+Invalid field name(s) for model NewsKeyword: 'url'.
+#######################################
