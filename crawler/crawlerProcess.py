@@ -238,6 +238,7 @@ def printError(url , e):
     f.close()
 
 def addKeywordForNews(link, keyword):
+    from . import models
     models.NewsKeyword.objects.update_or_create(
         defaults = {'url' : link, 'keyword' : keyword},
         url = link,
