@@ -130,12 +130,14 @@ def work():
                     
                     if urlCheckSet.issuperset({item['originallink']}):
                         print(item['originallink'], "는 중복된 링크입니다.")
+                        addKeywordForNews(item['originallink'], keywordModel.keyword)
                     else:
                         urlCheckSet.add(item['originallink'])
 
                         #기존 데이터베이스에도 없어야한다.
                         if len(models.News.objects.filter(url=item['originallink'])) >= 1:
                             print(item['originallink'], "는 이미 DB에 있는 링크입니다.")
+                            addKeywordForNews(item['originallink'], keywordModel.keyword)
                             continue
 
                         #해당 신문사의 기사를 직접 읽어들인다.
@@ -235,6 +237,13 @@ def printError(url , e):
     f.write("\n#######################################\n")
     f.close()
 
+def addKeywordForNews(link, keyword):
+    models.NewsKeyword.objects.update_or_create(
+        defaults = {'url' : link, 'keyword' : keyword},
+        url = link,
+        keyword = keyword
+    )
+
 #main에 작성하는 테스트 코드가 제대로 되면 옮겨오자.
 def handleNews(link, title, keyword):
     from . import models
@@ -297,11 +306,7 @@ def handleNews(link, title, keyword):
         defaults = {'url' : link, 'head_text' : title, 'body_text' : realNewsText, 'crawled_date' : str(datetime.datetime.now())},
         url = link
     )
-    models.NewsKeyword.objects.update_or_create(
-        defaults = {'url' : link, 'keyword' : keyword},
-        url = link,
-        keyword = keyword
-    )
+    addKeywordForNews(link, keyword)
     
 
 def main():
