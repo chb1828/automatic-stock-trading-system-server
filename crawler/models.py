@@ -18,6 +18,7 @@ class News(models.Model):
     objects = models.Manager()
     url = models.URLField('url of news provider', max_length=1024, primary_key=True)
     crawled_date = models.DateTimeField('crawled date')
+    posted_date = models.DateTimeField('posted_date')
     head_text = models.TextField('head text')
     body_text = models.TextField('body text of news')
 

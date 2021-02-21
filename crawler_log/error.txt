@@ -22,3 +22,155 @@ http://www.electimes.com/article.php?aid=1613625990212743025
 #######################################
 Invalid field name(s) for model NewsKeyword: 'url'.
 #######################################
+http://www.getnews.co.kr/news/articleView.html?idxno=516054
+#######################################
+['“Fri, 19 Feb 2021 06:56:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.choicenews.co.kr/news/articleView.html?idxno=79390
+#######################################
+['“Fri, 19 Feb 2021 06:55:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.newstomato.com/ReadNews.aspx?no=1026235
+#######################################
+['“Fri, 19 Feb 2021 06:54:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+https://news.mtn.co.kr/newscenter/news_viewer.mtn?gidx=2021021906432276267
+#######################################
+['“Fri, 19 Feb 2021 06:49:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+https://www.news1.kr/articles/?4216550
+#######################################
+['“Fri, 19 Feb 2021 06:40:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.newsis.com/view/?id=NISX20210219_0001344394&cID=10101&pID=10100
+#######################################
+['“Fri, 19 Feb 2021 06:39:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.ajunews.com/view/20210219054842447
+#######################################
+['“Fri, 19 Feb 2021 06:36:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202102190012&t=NN
+#######################################
+['“Fri, 19 Feb 2021 06:24:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.econonews.co.kr/news/articleView.html?idxno=159051
+#######################################
+['“Fri, 19 Feb 2021 06:22:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.fnnews.com/news/202102190614274165
+#######################################
+['“Fri, 19 Feb 2021 06:17:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.idomin.com/news/articleView.html?idxno=753614
+#######################################
+['“Fri, 19 Feb 2021 06:09:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+https://www.news1.kr/articles/?4216545
+#######################################
+['“Fri, 19 Feb 2021 06:07:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+https://www.kgnews.co.kr/news/article.html?no=629622
+#######################################
+['“Fri, 19 Feb 2021 06:03:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://yna.kr/AKR20210218151800017?did=1195m
+#######################################
+['“Fri, 19 Feb 2021 06:00:00 +0900” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.getnews.co.kr/news/articleView.html?idxno=516054
+#######################################
+expected string or bytes-like object
+#######################################
+http://www.choicenews.co.kr/news/articleView.html?idxno=79390
+#######################################
+expected string or bytes-like object
+#######################################
+http://www.newstomato.com/ReadNews.aspx?no=1026235
+#######################################
+expected string or bytes-like object
+#######################################
+https://news.mtn.co.kr/newscenter/news_viewer.mtn?gidx=2021021906432276267
+#######################################
+expected string or bytes-like object
+#######################################
+https://www.news1.kr/articles/?4216550
+#######################################
+expected string or bytes-like object
+#######################################
+http://www.newsis.com/view/?id=NISX20210219_0001344394&cID=10101&pID=10100
+#######################################
+expected string or bytes-like object
+#######################################
+http://www.getnews.co.kr/news/articleView.html?idxno=516054
+#######################################
+['“Thu, 18 Feb 2021 21:56:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.choicenews.co.kr/news/articleView.html?idxno=79390
+#######################################
+['“Thu, 18 Feb 2021 21:55:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.newstomato.com/ReadNews.aspx?no=1026235
+#######################################
+['“Thu, 18 Feb 2021 21:54:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+https://news.mtn.co.kr/newscenter/news_viewer.mtn?gidx=2021021906432276267
+#######################################
+['“Thu, 18 Feb 2021 21:49:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+https://www.news1.kr/articles/?4216550
+#######################################
+['“Thu, 18 Feb 2021 21:40:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.newsis.com/view/?id=NISX20210219_0001344394&cID=10101&pID=10100
+#######################################
+['“Thu, 18 Feb 2021 21:39:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.ajunews.com/view/20210219054842447
+#######################################
+['“Thu, 18 Feb 2021 21:36:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.wowtv.co.kr/NewsCenter/News/Read?articleId=A202102190012&t=NN
+#######################################
+['“Thu, 18 Feb 2021 21:24:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.econonews.co.kr/news/articleView.html?idxno=159051
+#######################################
+['“Thu, 18 Feb 2021 21:22:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.fnnews.com/news/202102190614274165
+#######################################
+['“Thu, 18 Feb 2021 21:17:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.idomin.com/news/articleView.html?idxno=753614
+#######################################
+['“Thu, 18 Feb 2021 21:09:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+https://www.news1.kr/articles/?4216545
+#######################################
+['“Thu, 18 Feb 2021 21:07:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+https://www.kgnews.co.kr/news/article.html?no=629622
+#######################################
+['“Thu, 18 Feb 2021 21:03:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://yna.kr/AKR20210218151800017?did=1195m
+#######################################
+['“Thu, 18 Feb 2021 21:00:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.newspim.com/news/view/20210219000019
+#######################################
+['“Thu, 18 Feb 2021 20:58:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://www.choicenews.co.kr/news/articleView.html?idxno=79386
+#######################################
+['“Thu, 18 Feb 2021 20:25:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+https://www.news1.kr/articles/?4216542
+#######################################
+['“Thu, 18 Feb 2021 20:24:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################
+http://news.mt.co.kr/mtview.php?no=2021021810255520746
+#######################################
+['“Thu, 18 Feb 2021 20:15:00 GMT” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format.']
+#######################################

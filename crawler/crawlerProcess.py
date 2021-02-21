@@ -142,7 +142,7 @@ def work():
 
                         #해당 신문사의 기사를 직접 읽어들인다.
                         try:
-                            handleNews(item['originallink'], title, keywordModel.keyword)
+                            handleNews(item['originallink'], title, keywordModel.keyword, str(pubDate))
                         except Exception as e:
                             printError(item['originallink'] , e)
 
@@ -246,7 +246,7 @@ def addKeywordForNews(link, keyword):
     )
 
 #main에 작성하는 테스트 코드가 제대로 되면 옮겨오자.
-def handleNews(link, title, keyword):
+def handleNews(link, title, keyword, pubDate):
     from . import models
     print('handling ' + link)
     try:
@@ -304,7 +304,7 @@ def handleNews(link, title, keyword):
     f.close()
 
     models.News.objects.update_or_create(
-        defaults = {'url' : link, 'head_text' : title, 'body_text' : realNewsText, 'crawled_date' : str(datetime.datetime.now())},
+        defaults = {'url' : link, 'head_text' : title, 'body_text' : realNewsText, 'crawled_date' : str(datetime.datetime.now()), 'posted_date' : pubDate},
         url = link
     )
     addKeywordForNews(link, keyword)
