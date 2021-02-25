@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     #'rest_auth',
     'crawler',
     'api',
-    'cs'
 ]
 
 ASGI_APPLICATION = "socketPractice.routing.application"
