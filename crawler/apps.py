@@ -8,6 +8,7 @@ import atexit
 msgQueue = Queue()
 p = None
 
+
 class CrawlerConfig(AppConfig):
     name = 'crawler'
     verbose_name = 'Crawling Service App for ASTS'

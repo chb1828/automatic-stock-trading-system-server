@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
+
 class ClientSocketConfig(AppConfig):
     name = 'client_socket'
     
