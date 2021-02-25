@@ -41,8 +41,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     #'rest_auth',
     'crawler',
-    'api'
+    'api',
+    'cs'
 ]
+
+ASGI_APPLICATION = "socketPractice.routing.application"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

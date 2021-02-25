@@ -20,5 +20,6 @@ from .router import router
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('crawler/', include('crawler.urls'))
+    path('crawler/', include('crawler.urls')),
+    path('cs/',include('cs.urls')),
 ]
