@@ -10,3 +10,4 @@ elasticsearch
 django-bulk-update-or-create
 selenium
 channels
+channels_redis

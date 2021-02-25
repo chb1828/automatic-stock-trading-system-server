@@ -42,9 +42,19 @@ INSTALLED_APPS = [
     #'rest_auth',
     'crawler',
     'api',
+    'client_socket',
+    'channels'
 ]
 
-ASGI_APPLICATION = "socketPractice.routing.application"
+ASGI_APPLICATION = "ASTS.router.application"
+
+# Channels
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {"hosts": [("127.0.0.1", 6379)]},     # 도커일때에는 변경되어야함
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

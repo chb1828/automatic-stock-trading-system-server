@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('crawler/', include('crawler.urls')),
+    path('client/', include('client_socket.urls'))
 ]
