@@ -10,7 +10,8 @@
     <input id="chat-message-submit" type="text" size="100"><br />
 
     <script type="text/javascript">
-        let roomName = "{{ room_name | escapejs }}";
+        {#let roomName = "{{ room_name | escapejs }}";#}
+        let roomName = "test";
         console.log(window.location.host)
         let chatSocket = new WebSocket(
             `ws://127.0.0.1:8000/ws/client/${roomName}/`
