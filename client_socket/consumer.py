@@ -9,7 +9,7 @@ class ClientConsumer(WebsocketConsumer):
         self.client_name = "client"
         self.group_name = 'ASTS'
 
-        # "room" 그룹에 가입
+        # "ASTS" 그룹에 가입
         async_to_sync(self.channel_layer.group_add)(
             self.group_name,
             self.channel_name
@@ -38,7 +38,7 @@ class ClientConsumer(WebsocketConsumer):
             }
         )
 
-        # "room" 그룹에서 메시지 전송
+        # "ASTS" 그룹에서 메시지 전송
 
     def chat_message(self, event):
         message = event['message']
