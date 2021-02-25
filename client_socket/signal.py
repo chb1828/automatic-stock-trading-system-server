@@ -11,9 +11,9 @@ from django.core import serializers
 @receiver(post_save, sender=News)
 def send_signal(sender, **kwargs):
 
-    print(datetime.today().strftime('%Y-%m-%d'),"찍힘")        # 여기까지함 포맷 확인해
+    print(datetime.today().strftime('%Y-%m-%d'),"찍힘")
     recommendation = Recommend.objects.get(ranked_date=str(datetime.today().strftime('%Y-%m-%d')))
-    data = serializers.serialize('json',[recommendation,])
+    data = "123"
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
         "ASTS",

@@ -1,25 +1,26 @@
 from asgiref.sync import async_to_sync
-from channels.generic.websocket import WebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 
 
-class ClientConsumer(WebsocketConsumer):
-    def connect(self):
+class ClientConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
 
         self.client_name = "client"
         self.group_name = 'ASTS'
 
-        self.accept()
         # "ASTS" 그룹에 가입
-        self.channel_layer.group_add(
+        await self.channel_layer.group_add(
             self.group_name,
             self.channel_name
         )
+
+        await self.accept()
         print(f"Added {self.channel_name} channel to task")
         print("연결 성공")
 
-    def disconnect(self, code):
-        async_to_sync(self.channel_layer.group_discard)(
+    async def disconnect(self, code):
+        await async_to_sync(self.channel_layer.group_discard)(
             self.group_name,
             self.channel_name
         )
@@ -27,5 +28,9 @@ class ClientConsumer(WebsocketConsumer):
         print("연결 해제.")
 
     # "ASTS" 그룹에서 메시지 전송
-    def client_notification(self, event):
-        self.send_json(event["data"])
+    async def client_notification(self, event):
+        print(event["data"])
+        await self.send(json.dumps({
+            "type": "websocket.send",
+            "data": event["data"]
+        }))
