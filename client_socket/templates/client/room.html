@@ -17,8 +17,9 @@
         );
 
         chatSocket.onmessage = (e) => {
+            console.log("찍힘")
             let data = JSON.parse(e.data);
-            let message = data['message'];
+            let message = data['data'];
             document.querySelector("#chat-log").value += (message + '\n');
         };
 
