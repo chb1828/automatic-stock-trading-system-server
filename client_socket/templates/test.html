@@ -6,8 +6,6 @@
 </head>
 <body>
     <textarea id="chat-log" cols="100" rows="20"></textarea><br />
-    <input id="chat-message-input" type="text" size="100"><br />
-    <input id="chat-message-submit" type="text" size="100"><br />
 
     <script type="text/javascript">
         {#let roomName = "{{ room_name | escapejs }}";#}
@@ -45,22 +43,7 @@
              document.querySelector("#chat-log").value = '연결이 끊겼습니다. \n';
         };
 
-        document.querySelector("#chat-message-input").focus();
-        document.querySelector("#chat-message-input").addEventListener("keyup",(e) => {
-            if (e.keyCode === 13) {
-                document.querySelector("#chat-message-submit").click();
-            }
-        });
 
-        document.querySelector("#chat-message-submit").addEventListener("click", (e) => {
-            let messageInputDom = document.querySelector("#chat-message-input");
-            let message = messageInputDom.value;
-            chatSocket.send(JSON.stringify({
-                'message' : message
-            }));
-
-            messageInputDom.value = '';
-        });
     </script>
 </body>
 </html>
