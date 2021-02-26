@@ -18,14 +18,31 @@
         );
 
         chatSocket.onmessage = (e) => {
-            console.log(e.data)
             let data = JSON.parse(e.data);
-            let message = data['data'];
-            document.querySelector("#chat-log").value += (message + '\n');
+            let ranks = JSON.parse(data['data'])
+
+            let rank1 = ranks.rank1.substr(0,30);
+            let rank2 = ranks.rank2.substr(0,30);
+            let rank3 = ranks.rank3.substr(0,30);
+            let rank4 = ranks.rank4.substr(0,30);
+            let rank5 = ranks.rank5.substr(0,30);
+
+            document.querySelector("#chat-log").value += (
+                  'rank1 : ' + rank1 + '\n'
+                + 'rank2 : ' + rank2 + '\n'
+                + 'rank3 : ' + rank3 + '\n'
+                + 'rank4 : ' + rank4 + '\n'
+                + 'rank5 : ' + rank5 + '\n'
+                + '==================================================================================== \n'
+            );
+        };
+
+        chatSocket.onopen = (e) => {
+            document.querySelector("#chat-log").value = '연결되었습니다. \n';
         };
 
         chatSocket.onclose = (e) => {
-            console.error('Chat socket closed unexpectedly');
+             document.querySelector("#chat-log").value = '연결이 끊겼습니다. \n';
         };
 
         document.querySelector("#chat-message-input").focus();

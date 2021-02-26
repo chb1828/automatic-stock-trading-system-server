@@ -33,4 +33,4 @@ class ClientConsumer(AsyncWebsocketConsumer):
         await self.send(json.dumps({
             "type": "websocket.send",
             "data": event["data"]
-        }))
+        },ensure_ascii=False))
