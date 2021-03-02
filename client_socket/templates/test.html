@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Chat Room</title>
+</head>
+<body>
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br />
+
+    <script type="text/javascript">
+        {#let roomName = "{{ room_name | escapejs }}";#}
+        let roomName = "test";
+        console.log(window.location.host)
+        let chatSocket = new WebSocket(
+            `ws://127.0.0.1:8000/ws/client/${roomName}/`
+        );
+
+        chatSocket.onmessage = (e) => {
+            let data = JSON.parse(e.data);
+            let ranks = JSON.parse(data['data'])
+
+            let rank1 = ranks.rank1.substr(0,30);
+            let rank2 = ranks.rank2.substr(0,30);
+            let rank3 = ranks.rank3.substr(0,30);
+            let rank4 = ranks.rank4.substr(0,30);
+            let rank5 = ranks.rank5.substr(0,30);
+
+            document.querySelector("#chat-log").value += (
+                  'rank1 : ' + rank1 + '\n'
+                + 'rank2 : ' + rank2 + '\n'
+                + 'rank3 : ' + rank3 + '\n'
+                + 'rank4 : ' + rank4 + '\n'
+                + 'rank5 : ' + rank5 + '\n'
+                + '==================================================================================== \n'
+            );
+        };
+
+        chatSocket.onopen = (e) => {
+            document.querySelector("#chat-log").value = '연결되었습니다. \n';
+        };
+
+        chatSocket.onclose = (e) => {
+             document.querySelector("#chat-log").value = '연결이 끊겼습니다. \n';
+        };
+
+
+    </script>
+</body>
+</html>
