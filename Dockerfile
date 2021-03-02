@@ -12,7 +12,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apk update \
     && apk add postgresql-dev gcc python3-dev musl-dev
 
-RUN apt-get install build-essential libssl-dev libffi-dev python-dev
+RUN apk add build-essential libssl-dev libffi-dev python-dev
 
 # install dependencies
 RUN pip install --upgrade pip
