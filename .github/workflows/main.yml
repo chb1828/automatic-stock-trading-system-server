@@ -32,7 +32,6 @@ jobs:
           pip install virtualenv
           python -m virtualenv venv
           . venv/bin/activate
-          pip install cryptography
           python -m pip install --upgrade pip
           pip install --no-cache-dir -r requirements.txt
 
