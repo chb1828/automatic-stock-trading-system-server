@@ -64,6 +64,7 @@ def processInit(msgQueue):
             options.add_argument('headless')
             options.add_argument('window-size=1920x1080')
             options.add_argument("disable-gpu")
+            options.add_argument("disable-notifications")
             webDriver = webdriver.Chrome('./webdriver/chromedriver.exe', chrome_options=options)
 
             from . import models
@@ -130,17 +131,23 @@ def work():
                     
                     if urlCheckSet.issuperset({item['originallink']}):
                         print(item['originallink'], "는 중복된 링크입니다.")
+                        addKeywordForNews(item['originallink'], keywordModel.keyword)
                     else:
                         urlCheckSet.add(item['originallink'])
 
                         #기존 데이터베이스에도 없어야한다.
                         if len(models.News.objects.filter(url=item['originallink'])) >= 1:
                             print(item['originallink'], "는 이미 DB에 있는 링크입니다.")
+                            addKeywordForNews(item['originallink'], keywordModel.keyword)
                             continue
 
                         #해당 신문사의 기사를 직접 읽어들인다.
-                        handleNews(item['originallink'], title)
+                        try:
+                            handleNews(item['originallink'], title, keywordModel.keyword, str(pubDate))
+                        except Exception as e:
+                            printError(item['originallink'] , e)
                         analyzer.analysis()
+
                         if not checkKillSignal():
                             #신문사의 기사를 읽어들이는 과정에서 크롤러가 신문사 웹사이트 요청 제한을 초과해버리면 아무 것도 받아오지 못하게 된다.
                             time.sleep(1)
@@ -203,7 +210,7 @@ def getRealNewsTag(node, targetLength):
         return None
 
 def sweepShortTextTag(node):
-    for element in node.find_all(True):
+    for element in node.find_all(recursive=False):
         recursiveSweepShortTextTag(element)
 
 def recursiveSweepShortTextTag(node):
@@ -213,27 +220,51 @@ def recursiveSweepShortTextTag(node):
     except:
         style = ""
     if len(text) > 10 and (displayNone.search(style) == None):
-        for element in node.find_all(True):
-            sweepShortTextTag(element)
         text = node.get_text()
         if len(text) <= 10:
             node.decompose()
+            return
+        for element in node.find_all(recursive=False):
+            recursiveSweepShortTextTag(element)
     else:
         node.decompose()
 
+def printError(url , e):
+    if not os.path.exists("./crawler_log"):
+        os.mkdir("./crawler_log")
+    f = open("./crawler_log/"+ 'error.txt', 'a+', -1, 'utf-8')
+    f.write(url)
+    f.write("\n#######################################\n")
+    f.write(str(e))
+    f.write("\n#######################################\n")
+    f.close()
+
+def addKeywordForNews(link, keyword):
+    from . import models
+    models.NewsKeyword.objects.update_or_create(
+        defaults = {'url' : link, 'keyword' : keyword},
+        url = link,
+        keyword = keyword
+    )
+
 #main에 작성하는 테스트 코드가 제대로 되면 옮겨오자.
-def handleNews(link, title):
+def handleNews(link, title, keyword, pubDate):
     from . import models
     print('handling ' + link)
     try:
         webDriver.get(link)
         print('render finished')
+        try:
+            webDriver.switch_to.alert.accept()
+            webDriver.switch_to.alert.dismiss()
+        except:
+            print("no more alerts")
     except:
         print("error while loading in chrome")
         return
         #page = requests.get(link, headers = NEWS_CRAWLER_HEADERS, verify=False)
     soup = BeautifulSoup(str(webDriver.find_element_by_tag_name('body').get_attribute("innerHTML")), 'html.parser')
-    removeTargets = ['script', 'a', 'img', 'style', 'table', 'iframe', 'form', 'fieldset', 'noscript', 'input', 'button']
+    removeTargets = ['script', 'a', 'img', 'style', 'iframe', 'form', 'fieldset', 'noscript', 'input', 'button']
     targets = soup.find_all(removeTargets, recursive=True)
     for target in targets:
         #print("제거됌", target)
@@ -255,6 +286,8 @@ def handleNews(link, title):
     #아주 짧은 단신의 경우 전혀 가려낼 수가 없다는 단점이 있다. 이런 경우에는...생각해보자.
 
     realNewsTag = getRealNewsTag(soup, len(newsText))
+    if realNewsTag is None:
+        return
     realNewsText = realNewsTag.get_text()
     realNewsText = re.sub(multipleNewLine, '\n', realNewsText)
     realNewsText = re.sub(multipleSpace, ' ', realNewsText)
@@ -273,9 +306,10 @@ def handleNews(link, title):
     f.close()
 
     models.News.objects.update_or_create(
-        defaults = {'url' : link, 'head_text' : title, 'body_text' : realNewsText, 'crawled_date' : str(datetime.datetime.now())},
+        defaults = {'url' : link, 'head_text' : title, 'body_text' : realNewsText, 'crawled_date' : str(datetime.datetime.now()), 'posted_date' : pubDate},
         url = link
     )
+    addKeywordForNews(link, keyword)
     
 
 def main():

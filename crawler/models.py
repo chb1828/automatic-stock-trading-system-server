@@ -18,10 +18,18 @@ class News(models.Model):
     objects = models.Manager()
     url = models.URLField('url of news provider', max_length=1024, primary_key=True)
     crawled_date = models.DateTimeField('crawled date')
+    posted_date = models.DateTimeField('posted_date')
     head_text = models.TextField('head text')
     body_text = models.TextField('body text of news')
 
 
+class NewsKeyword(models.Model):
+    objects = models.Manager()
+    class Meta:
+        unique_together = (('url', 'keyword'))
+    url = models.URLField('url of news provider', max_length=1024)
+    keyword = models.CharField('keyword to search in naver news api', max_length=128)
+    
 class Recommend(models.Model):
     objects = models.Manager()
     ranked_date = models.DateField('ranked date', primary_key=True)
