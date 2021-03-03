@@ -144,9 +144,10 @@ def work():
                         #해당 신문사의 기사를 직접 읽어들인다.
                         try:
                             handleNews(item['originallink'], title, keywordModel.keyword, str(pubDate))
+                            analyzer.analysis()
                         except Exception as e:
                             printError(item['originallink'] , e)
-                        analyzer.analysis()
+
 
                         if not checkKillSignal():
                             #신문사의 기사를 읽어들이는 과정에서 크롤러가 신문사 웹사이트 요청 제한을 초과해버리면 아무 것도 받아오지 못하게 된다.
