@@ -10,7 +10,7 @@ ENV PYTHONUNBUFFERED 1
 
 # install psycopg2 dependencies
 RUN apk update \
-    && apk add postgresql-dev gcc python3-dev alpine-sdk musl-dev libssl-dev libffi-dev python-dev
+    && apk add postgresql-dev gcc python3-dev alpine-sdk musl-dev libffi-dev
 
 # install dependencies
 RUN pip install --upgrade pip
