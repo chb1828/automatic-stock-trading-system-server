@@ -13,7 +13,7 @@ RUN pip install --upgrade pip
 
 # install psycopg2 dependencies
 RUN apk update \
-    && apk add postgresql-dev gcc python3-dev alpine-sdk musl-dev libffi-dev
+    && apk add postgresql-dev gcc python3-dev alpine-sdk musl-dev libffi-dev openssl-dev cargo
 
 # install dependencies
 COPY requirements.txt .
