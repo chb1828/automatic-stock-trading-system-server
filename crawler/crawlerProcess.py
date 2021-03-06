@@ -28,7 +28,7 @@ NEWS_CRAWLER_HEADERS = {
 CRAWLER_BACKTRACK_LIMIT = 30
 
 #if you want some default keywords, add them in here for easy test
-keywords = ["원유", "금", "은", "미국채"]
+keywords = ["게임"]
 
 cleaner = re.compile('(<.*?>|&.*;)')
 #descriptionRegex = re.compile(r"(?:[.]\s)([^.]+)(?:[.]{1, 3})$")
@@ -142,7 +142,7 @@ def work():
 
                         #해당 신문사의 기사를 직접 읽어들인다.
                         try:
-                            handleNews(item['originallink'], title, keywordModel.keyword, str(pubDate))
+                            handleNews(item['originallink'], title, keywordModel.keyword, pubDate)
                         except Exception as e:
                             printError(item['originallink'] , e)
 
@@ -170,7 +170,7 @@ def work():
                 print('표시갯수', jsonRes['display'])
                 print('------------------')
 
-                #901 means it crawled all the allowed 1000 from naver news api. it doeesnt even return result after 1000th news.
+                #901 means it crawled all the allowed 1000 from naver news api. it doesnt even return result after 1000th news.
                 if (start + jsonRes['display'] - 1 == jsonRes['total']) or start == 901:
                     stop = True
                 else:
@@ -221,11 +221,15 @@ def recursiveSweepShortTextTag(node):
         text = node.get_text()
         if len(text) <= 10:
             node.decompose()
-            return
+            return None
         for element in node.find_all(recursive=False):
             recursiveSweepShortTextTag(element)
+        if len(text) <= 10:
+            node.decompose()
+            return None
     else:
         node.decompose()
+        return None
 
 def printError(url , e):
     if not os.path.exists("./crawler_log"):
@@ -238,16 +242,19 @@ def printError(url , e):
     f.close()
 
 def addKeywordForNews(link, keyword):
+    print('호출댐')
     from . import models
-    models.NewsKeyword.objects.update_or_create(
-        defaults = {'url' : link, 'keyword' : keyword},
+    obj, created = models.NewsKeyword.objects.get_or_create(
         url = link,
         keyword = keyword
     )
+    print(link, keyword, created, '삽입함')
+
 
 #main에 작성하는 테스트 코드가 제대로 되면 옮겨오자.
 def handleNews(link, title, keyword, pubDate):
     from . import models
+    from django.db import IntegrityError
     print('handling ' + link)
     try:
         webDriver.get(link)
@@ -285,6 +292,7 @@ def handleNews(link, title, keyword, pubDate):
 
     realNewsTag = getRealNewsTag(soup, len(newsText))
     if realNewsTag is None:
+        print('여기는 오네')
         return
     realNewsText = realNewsTag.get_text()
     realNewsText = re.sub(multipleNewLine, '\n', realNewsText)
@@ -302,12 +310,13 @@ def handleNews(link, title, keyword, pubDate):
     f.write("\n#######################################\n")
     f.write(str(soup.prettify()))
     f.close()
-
-    models.News.objects.update_or_create(
-        defaults = {'url' : link, 'head_text' : title, 'body_text' : realNewsText, 'crawled_date' : str(datetime.datetime.now()), 'posted_date' : pubDate},
-        url = link
-    )
     addKeywordForNews(link, keyword)
+    try:
+        obj, created = models.News.objects.update_or_create(
+            defaults = {'head_text' : title, 'body_text' : realNewsText, 'crawled_date' : str(datetime.datetime.now()), 'posted_date' : pubDate.datetime()},
+            url = link)
+    except Exception as e:
+        print("error while adding data to DB", e)
     
 
 def main():
