@@ -89,6 +89,10 @@ services:
       - ./config/nginx:/etc/nginx/conf.d
     depends_on:
       - web
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
 volumes:
   postgres_data:
   es_data:

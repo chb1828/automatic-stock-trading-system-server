@@ -11,6 +11,7 @@ from collections import deque
 from selenium import webdriver
 
 #네이버 api의 1일 검색 허용량은 25000회이며, 초당 10회 미만의 요청을 보내야 합니다.
+from crawler import analyzer
 
 API_HOST = 'https://openapi.naver.com/v1/search/news.json'
 API_CLIENT_ID = 'WspdN2NYUPK3Q4Bhurlj'
@@ -145,6 +146,7 @@ def work():
                             handleNews(item['originallink'], title, keywordModel.keyword, pubDate)
                         except Exception as e:
                             printError(item['originallink'] , e)
+                        analyzer.analysis()
 
                         if not checkKillSignal():
                             #신문사의 기사를 읽어들이는 과정에서 크롤러가 신문사 웹사이트 요청 제한을 초과해버리면 아무 것도 받아오지 못하게 된다.

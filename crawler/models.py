@@ -29,3 +29,12 @@ class NewsKeyword(models.Model):
         unique_together = (('url', 'keyword'))
     url = models.URLField('url of news provider', max_length=1024)
     keyword = models.CharField('keyword to search in naver news api', max_length=128)
+    
+class Recommend(models.Model):
+    objects = models.Manager()
+    ranked_date = models.DateField('ranked date', primary_key=True)
+    rank1 = models.TextField("body text of rank1")
+    rank2 = models.TextField("body text of rank2")
+    rank3 = models.TextField("body text of rank3")
+    rank4 = models.TextField("body text of rank4")
+    rank5 = models.TextField("body text of rank5")
