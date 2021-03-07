@@ -36,7 +36,7 @@ class Classification(models.Model):
     objects = models.Manager()
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     type = models.CharField(max_length=100)
-    news_url = models.ForeignKey("News", related_name="news_url", on_delete=models.CASCADE, db_column="news_url")
+    news_url = models.ForeignKey("News", related_name="news_url", on_delete=models.CASCADE, db_column="url",)
     date = models.DateField('classification date')
     rank = models.IntegerField('classification rank')
 
