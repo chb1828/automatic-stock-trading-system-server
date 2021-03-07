@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 # Create your models here.
 
@@ -29,12 +30,13 @@ class NewsKeyword(models.Model):
         unique_together = (('url', 'keyword'))
     url = models.URLField('url of news provider', max_length=1024)
     keyword = models.CharField('keyword to search in naver news api', max_length=128)
-    
-class Recommend(models.Model):
+
+
+class Classification(models.Model):
     objects = models.Manager()
-    ranked_date = models.DateField('ranked date', primary_key=True)
-    rank1 = models.TextField("body text of rank1")
-    rank2 = models.TextField("body text of rank2")
-    rank3 = models.TextField("body text of rank3")
-    rank4 = models.TextField("body text of rank4")
-    rank5 = models.TextField("body text of rank5")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    type = models.CharField(max_length=100)
+    news_url = models.ForeignKey("News", related_name="news_url", on_delete=models.CASCADE, db_column="news_url")
+    date = models.DateField('classification date')
+    rank = models.IntegerField('classification rank')
+
