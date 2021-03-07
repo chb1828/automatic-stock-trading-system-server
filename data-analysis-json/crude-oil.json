@@ -1,0 +1,41 @@
+{
+    "size": 5,
+    "query": {
+        "bool": {
+            "must": [
+                {
+                    "dis_max": {
+                        "queries": [
+                            {
+                                "match": {
+                                    "body_text": "원유"
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "range": {
+                        "crawled_date": {
+                            "gte": "now-1d/d",
+                            "lte": "now/d"
+                        }
+                    }
+                }
+            ],
+            "should": [
+                {
+                    "match": {
+                        "body_text": "기대감 상승 증가"
+                    }
+                },
+                {
+                    "match_phrase": {
+                        "body_text": "연속 증가세"
+                    }
+                }
+            ],
+            "minimum_should_match": 0
+        }
+    }
+}
